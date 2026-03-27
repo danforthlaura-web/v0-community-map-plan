@@ -21,17 +21,12 @@ export interface Project {
   organization_type?: string
   organization_website?: string
   years_active?: number
-  kolibri_version?: string
   channels_used?: string[]
   primary_use_case?: string
   primary_language?: string
   other_languages?: string[]
   customized_content?: boolean
-  challenges_faced?: string
-  measurable_impact?: string
-  success_stories?: string
   social_media_links?: Record<string, string>
-  additional_notes?: string
   photo_url?: string
   program_links?: Array<{ title: string; url: string }>
   created_at: string
@@ -150,7 +145,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           {/* Implementation */}
           <Section title="Implementation">
             <Row label="Primary use case" value={project.primary_use_case} />
-            <Row label="Kolibri version" value={project.kolibri_version} />
             <Row label="Customized content" value={project.customized_content} />
             {project.channels_used && project.channels_used.length > 0 && (
               <div className="grid grid-cols-[140px_1fr] gap-2 text-sm">
@@ -172,36 +166,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             )}
           </Section>
 
-          {/* Impact */}
-          {(project.measurable_impact || project.success_stories || project.challenges_faced) && (
-            <Section title="Impact & Stories">
-              {project.measurable_impact && (
-                <div className="text-sm space-y-1">
-                  <p className="text-foreground/50">Measurable impact</p>
-                  <p className="text-foreground leading-relaxed">{project.measurable_impact}</p>
-                </div>
-              )}
-              {project.success_stories && (
-                <div className="text-sm space-y-1 mt-3">
-                  <p className="text-foreground/50">Success stories</p>
-                  <p className="text-foreground leading-relaxed">{project.success_stories}</p>
-                </div>
-              )}
-              {project.challenges_faced && (
-                <div className="text-sm space-y-1 mt-3">
-                  <p className="text-foreground/50">Challenges faced</p>
-                  <p className="text-foreground leading-relaxed">{project.challenges_faced}</p>
-                </div>
-              )}
-            </Section>
-          )}
 
-          {/* Additional notes */}
-          {project.additional_notes && (
-            <Section title="Additional Notes">
-              <p className="text-sm text-foreground leading-relaxed">{project.additional_notes}</p>
-            </Section>
-          )}
 
           {/* Program Links */}
           {project.program_links && project.program_links.length > 0 && (

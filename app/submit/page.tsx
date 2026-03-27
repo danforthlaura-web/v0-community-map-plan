@@ -44,6 +44,7 @@ export default function SubmitPage() {
 
     // Content Details
     publicChannels: '',
+    primaryLanguage: '',
     usesKolibriStudio: false,
 
     // Media & Social
@@ -132,7 +133,7 @@ export default function SubmitPage() {
     const stepErrors = errors.filter(e => {
       if (currentStep === 0) return ['name', 'email', 'organizationName', 'location', 'organizationWebsite', 'startYear'].includes(e.field)
       if (currentStep === 1) return ['implementationSettings', 'learnerTypes', 'deviceUsage', 'clientDevices', 'serverDevices', 'clientDeviceTypes', 'hardwareModel', 'blendedLearningModel', 'kolibriUsageDescription'].includes(e.field)
-      if (currentStep === 2) return ['publicChannels', 'reports'].includes(e.field)
+      if (currentStep === 2) return ['publicChannels', 'primaryLanguage', 'reports'].includes(e.field)
       return false
     })
 
@@ -184,7 +185,7 @@ export default function SubmitPage() {
           name: '', email: '', organizationName: '', location: '', organizationWebsite: '', startYear: '',
           implementationSettings: [], learnerTypes: [], deviceUsage: [], clientDevices: [],
           serverDevices: [], clientDeviceTypes: [], hardwareModel: [], blendedLearningModel: [],
-          kolibriUsageDescription: '', publicChannels: '', usesKolibriStudio: false,
+          kolibriUsageDescription: '', publicChannels: '', primaryLanguage: '', usesKolibriStudio: false,
           testimonials: '', reports: '',
           twitterHandle: '', facebookHandle: '', instagramHandle: '', linkedInHandle: '', forumUsername: '', otherSocial: '',
           photoUrl: '', photoFile: null, programLinks: [],
@@ -521,6 +522,19 @@ export default function SubmitPage() {
               {/* Step 3: Content Details */}
               {currentStep === 2 && (
                 <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Primary Language of Instruction *
+                    </label>
+                    <Input
+                      type="text"
+                      name="primaryLanguage"
+                      value={formData.primaryLanguage}
+                      onChange={handleInputChange}
+                      placeholder="e.g., English, Spanish, Swahili"
+                      required
+                    />
+                  </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
                       Favorite Channels from the Kolibri Library *
