@@ -263,121 +263,50 @@ export default function MapPage() {
   )
 }
 
-function ContextIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
-      <path d="M9 21V12h6v9" />
-    </svg>
-  )
-}
-
-function LearnerIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="7" r="4" />
-      <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
-    </svg>
-  )
-}
-
-function DeviceIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-      <rect x="2" y="7" width="6" height="10" rx="1" ry="1" />
-      <line x1="12" y1="18" x2="12" y2="18.01" />
-    </svg>
-  )
-}
-
-function MetaRow({ icon, label, value }: { icon: React.ReactNode; label: string; value?: string | null }) {
-  if (!value) return null
-  return (
-    <div className="flex items-start gap-2.5">
-      <span className="text-foreground/40 mt-0.5 shrink-0">{icon}</span>
-      <div className="text-sm">
-        <p className="font-semibold text-foreground leading-snug">{label}</p>
-        <p className="text-foreground/60 leading-snug">{value}</p>
-      </div>
-    </div>
-  )
-}
-
 function ProjectCard({ project, onSelect }: { project: Project; onSelect: (p: Project) => void }) {
-  const deviceRatio =
-    project.number_of_devices && project.number_of_students
-      ? project.number_of_devices >= project.number_of_students
-        ? '1 device per learner'
-        : project.number_of_students / project.number_of_devices <= 2
-        ? '1 device shared by 2 learners'
-        : `1 device shared by ${Math.round(project.number_of_students / project.number_of_devices)} or more learners`
-      : null
-
-  const learnerValue = [
-    project.channels_used && project.channels_used.length > 0 ? project.channels_used.join(', ') : null,
-    project.organization_type,
-  ]
-    .filter(Boolean)
-    .join(' · ') || null
-
   return (
     <Card
-      className="hover:shadow-lg transition-shadow hover:border-primary/50 cursor-pointer overflow-hidden flex flex-col"
+      className="hover:shadow-lg transition-shadow hover:border-primary/50 cursor-pointer"
       onClick={() => onSelect(project)}
     >
-      {/* Card header: org name + location */}
-      <div className="px-5 pt-5 pb-3">
-        <h3 className="text-base font-bold text-foreground leading-tight">{project.organization_name}</h3>
-        <p className="text-sm text-foreground/60 mt-0.5">{project.city}, {project.country}</p>
-      </div>
-
-      {/* Photo or placeholder */}
-      <div className="mx-5 mb-4 rounded-md overflow-hidden bg-muted aspect-[16/9]">
-        {project.photo_url ? (
-          <img
-            src={project.photo_url}
-            alt={`${project.organization_name} photo`}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-muted flex items-center justify-center">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className="text-muted-foreground/30" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="M21 15l-5-5L5 21" />
-            </svg>
-          </div>
-        )}
-      </div>
-
-      {/* Description */}
-      <div className="px-5 mb-4">
-        <p className="text-sm text-foreground/70 leading-relaxed line-clamp-3">
-          {project.project_description || 'No description provided.'}
-        </p>
-      </div>
-
-      {/* Metadata rows */}
-      <div className="px-5 pb-5 flex flex-col gap-3 mt-auto">
-        <MetaRow
-          icon={<ContextIcon />}
-          label="Context"
-          value={project.primary_use_case}
-        />
-        <MetaRow
-          icon={<LearnerIcon />}
-          label="Learner type"
-          value={learnerValue || (project.primary_language ? `Language: ${project.primary_language}` : null)}
-        />
-        {deviceRatio && (
-          <MetaRow
-            icon={<DeviceIcon />}
-            label="Device to learner ratio"
-            value={deviceRatio}
-          />
-        )}
-      </div>
+      <CardHeader>
+        <CardTitle className="text-lg">{project.organization_name}</CardTitle>
+        <CardDescription>
+          {project.city}, {project.country}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-sm text-foreground/60 line-clamp-3">{project.project_description || 'No description provided'}</p>
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          {project.number_of_students != null && (
+            <div>
+              <p className="text-foreground/60">Students</p>
+              <p className="font-medium text-foreground">{project.number_of_students.toLocaleString()}</p>
+            </div>
+          )}
+          {project.number_of_teachers != null && (
+            <div>
+              <p className="text-foreground/60">Teachers</p>
+              <p className="font-medium text-foreground">{project.number_of_teachers.toLocaleString()}</p>
+            </div>
+          )}
+        </div>
+        <div>
+          {project.primary_language && (
+            <p className="text-sm text-foreground/60 mb-1">
+              <span className="font-medium">Language:</span> {project.primary_language}
+            </p>
+          )}
+          {project.organization_type && (
+            <p className="text-sm text-foreground/60">
+              <span className="font-medium">Type:</span> {project.organization_type}
+            </p>
+          )}
+        </div>
+        <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+          View Full Details
+        </Button>
+      </CardContent>
     </Card>
   )
 }
@@ -385,52 +314,32 @@ function ProjectCard({ project, onSelect }: { project: Project; onSelect: (p: Pr
 function ProjectListItem({ project, onSelect }: { project: Project; onSelect: (p: Project) => void }) {
   return (
     <Card
-      className="hover:shadow-md transition-shadow hover:border-primary/50 cursor-pointer overflow-hidden"
+      className="hover:shadow-md transition-shadow hover:border-primary/50 cursor-pointer"
       onClick={() => onSelect(project)}
     >
-      <CardContent className="p-0">
-        <div className="flex gap-0">
-          {/* Thumbnail */}
-          <div className="w-28 shrink-0 bg-muted self-stretch">
-            {project.photo_url ? (
-              <img
-                src={project.photo_url}
-                alt={`${project.organization_name} photo`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center min-h-[90px]">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className="text-muted-foreground/30" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="M21 15l-5-5L5 21" />
-                </svg>
-              </div>
-            )}
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 px-4 py-3 flex flex-col gap-1.5">
-            <div>
-              <h3 className="font-bold text-foreground leading-tight">{project.organization_name}</h3>
-              <p className="text-xs text-foreground/60">{project.city}, {project.country}</p>
-            </div>
-            <p className="text-sm text-foreground/70 line-clamp-2 leading-relaxed">{project.project_description}</p>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-foreground/60 mt-0.5">
-              {project.primary_use_case && (
-                <span className="flex items-center gap-1">
-                  <ContextIcon />
-                  {project.primary_use_case}
-                </span>
+      <CardContent className="py-4">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div className="flex-1">
+            <h3 className="font-semibold text-foreground mb-1">{project.organization_name}</h3>
+            <p className="text-sm text-foreground/60 mb-2">
+              {project.city}, {project.country}
+            </p>
+            <p className="text-sm text-foreground mb-2 line-clamp-2">{project.project_description}</p>
+            <div className="flex flex-wrap gap-3 text-sm text-foreground/60">
+              {project.number_of_students != null && (
+                <span><span className="font-medium">Students:</span> {project.number_of_students.toLocaleString()}</span>
+              )}
+              {project.primary_language && (
+                <span><span className="font-medium">Language:</span> {project.primary_language}</span>
               )}
               {project.organization_type && (
-                <span className="flex items-center gap-1">
-                  <LearnerIcon />
-                  {project.organization_type}
-                </span>
+                <span><span className="font-medium">Type:</span> {project.organization_type}</span>
               )}
             </div>
           </div>
+          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0">
+            View Details
+          </Button>
         </div>
       </CardContent>
     </Card>
