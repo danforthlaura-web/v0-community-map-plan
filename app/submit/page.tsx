@@ -43,12 +43,8 @@ export default function SubmitPage() {
     kolibriUsageDescription: '',
 
     // Content Details
-    platformLanguage: '',
     publicChannels: '',
     usesKolibriStudio: false,
-    channelDescription: '',
-    channelToken: '',
-    learningGoals: '',
 
     // Media & Social
     testimonials: '',
@@ -57,6 +53,7 @@ export default function SubmitPage() {
     facebookHandle: '',
     instagramHandle: '',
     linkedInHandle: '',
+    forumUsername: '',
     otherSocial: '',
     photoUrl: '',
     photoFile: null,
@@ -135,7 +132,7 @@ export default function SubmitPage() {
     const stepErrors = errors.filter(e => {
       if (currentStep === 0) return ['name', 'email', 'organizationName', 'location', 'organizationWebsite', 'startYear'].includes(e.field)
       if (currentStep === 1) return ['implementationSettings', 'learnerTypes', 'deviceUsage', 'clientDevices', 'serverDevices', 'clientDeviceTypes', 'hardwareModel', 'blendedLearningModel', 'kolibriUsageDescription'].includes(e.field)
-      if (currentStep === 2) return ['platformLanguage', 'publicChannels', 'reports'].includes(e.field)
+      if (currentStep === 2) return ['publicChannels', 'reports'].includes(e.field)
       return false
     })
 
@@ -187,9 +184,9 @@ export default function SubmitPage() {
           name: '', email: '', organizationName: '', location: '', organizationWebsite: '', startYear: '',
           implementationSettings: [], learnerTypes: [], deviceUsage: [], clientDevices: [],
           serverDevices: [], clientDeviceTypes: [], hardwareModel: [], blendedLearningModel: [],
-          kolibriUsageDescription: '', platformLanguage: '', publicChannels: '', usesKolibriStudio: false,
-          channelDescription: '', channelToken: '', learningGoals: '', testimonials: '', reports: '',
-          twitterHandle: '', facebookHandle: '', instagramHandle: '', linkedInHandle: '', otherSocial: '',
+          kolibriUsageDescription: '', publicChannels: '', usesKolibriStudio: false,
+          testimonials: '', reports: '',
+          twitterHandle: '', facebookHandle: '', instagramHandle: '', linkedInHandle: '', forumUsername: '', otherSocial: '',
           photoUrl: '', photoFile: null, programLinks: [],
           receiveUpdates: false, emailVisible: false,
         })
@@ -526,26 +523,13 @@ export default function SubmitPage() {
                 <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Platform Language *
-                    </label>
-                    <Input
-                      type="text"
-                      name="platformLanguage"
-                      value={formData.platformLanguage}
-                      onChange={handleInputChange}
-                      placeholder="e.g., English, Spanish, Swahili"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Public Channels Used *
+                      Favorite Channels from the Kolibri Library *
                     </label>
                     <Textarea
                       name="publicChannels"
                       value={formData.publicChannels}
                       onChange={handleInputChange}
-                      placeholder="List the public channels you use from the Kolibri Content Library"
+                      placeholder="List your favorite channels from the Kolibri Content Library"
                       required
                     />
                   </div>
@@ -557,44 +541,6 @@ export default function SubmitPage() {
                       />
                       <span className="text-sm font-medium text-foreground">I use Kolibri Studio to curate local content</span>
                     </label>
-                  </div>
-                  {formData.usesKolibriStudio && (
-                    <>
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          Channel Description
-                        </label>
-                        <Textarea
-                          name="channelDescription"
-                          value={formData.channelDescription}
-                          onChange={handleInputChange}
-                          placeholder="Describe your custom channel"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          Channel Token
-                        </label>
-                        <Input
-                          type="text"
-                          name="channelToken"
-                          value={formData.channelToken}
-                          onChange={handleInputChange}
-                          placeholder="Your channel token"
-                        />
-                      </div>
-                    </>
-                  )}
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Learning Goals
-                    </label>
-                    <Textarea
-                      name="learningGoals"
-                      value={formData.learningGoals}
-                      onChange={handleInputChange}
-                      placeholder="What are the learning goals for using Kolibri? (Optional)"
-                    />
                   </div>
                 </div>
               )}
@@ -693,7 +639,7 @@ export default function SubmitPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Social Media Handles
+                      Social Media & Community Handles
                     </label>
                     <div className="space-y-3">
                       <Input
@@ -723,6 +669,13 @@ export default function SubmitPage() {
                         value={formData.linkedInHandle}
                         onChange={handleInputChange}
                         placeholder="LinkedIn (Optional)"
+                      />
+                      <Input
+                        type="text"
+                        name="forumUsername"
+                        value={formData.forumUsername}
+                        onChange={handleInputChange}
+                        placeholder="Learning Equality Community Forum username (Optional)"
                       />
                       <Input
                         type="text"
