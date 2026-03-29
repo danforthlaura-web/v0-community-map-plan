@@ -196,10 +196,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
 
           {/* Language */}
           <Section title="Language">
-            <Row label="Primary" value={project.primary_language} />
-            {project.other_languages && project.other_languages.length > 0 && (
-              <Row label="Other languages" value={project.other_languages.join(', ')} />
-            )}
+            <Row label="Language" value={project.primary_language} />
           </Section>
 
 
