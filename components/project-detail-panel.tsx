@@ -143,14 +143,13 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
 
           {/* Implementation */}
           <Section title="Implementation">
-            <Row label="Primary use case" value={project.primary_use_case} />
             <Row label="Customized content" value={project.customized_content} />
             {project.channels_used && project.channels_used.length > 0 && (
               <div className="grid grid-cols-[140px_1fr] gap-2 text-sm">
                 <span className="text-foreground/50">Kolibri Library Channels</span>
                 <div className="flex flex-wrap gap-1.5">
                   {project.channels_used.map(c => (
-                    <span key={c} className="inline-block bg-accent/20 text-foreground text-xs px-2 py-0.5 rounded-full">{c}</span>
+                    <span key={c} className="inline-block border border-border text-foreground text-xs px-2 py-0.5 rounded">{c}</span>
                   ))}
                 </div>
               </div>
