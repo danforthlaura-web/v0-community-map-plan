@@ -24,6 +24,32 @@ export default function WorldMap({ projects, onSelectProject }: WorldMapProps) {
     p => p.latitude != null && p.longitude != null && !isNaN(p.latitude) && !isNaN(p.longitude)
   )
 
+  // Apply offset to overlapping pins (spread them in a circle pattern)
+  const OFFSET_DISTANCE = 0.15 // ~15km offset in degrees (approximate)
+  const projectsWithOffsets = validProjects.map((project, index) => {
+    // Find all projects at approximately the same location
+    const nearbyProjects = validProjects.filter(
+      (p) =>
+        Math.abs(p.latitude - project.latitude) < 0.01 &&
+        Math.abs(p.longitude - project.longitude) < 0.01
+    )
+
+    if (nearbyProjects.length <= 1) {
+      return { ...project, offsetLat: project.latitude, offsetLng: project.longitude }
+    }
+
+    // Find this project's position in the group
+    const positionInGroup = nearbyProjects.findIndex((p) => p.id === project.id)
+    const totalInGroup = nearbyProjects.length
+
+    // Spread pins in a circle
+    const angle = (2 * Math.PI * positionInGroup) / totalInGroup
+    const offsetLat = project.latitude + OFFSET_DISTANCE * Math.sin(angle)
+    const offsetLng = project.longitude + OFFSET_DISTANCE * Math.cos(angle)
+
+    return { ...project, offsetLat, offsetLng }
+  })
+
   const handleZoomIn = useCallback(() => {
     if (position.zoom >= 8) return
     setPosition(pos => ({ ...pos, zoom: pos.zoom * 1.5 }))
@@ -123,10 +149,10 @@ export default function WorldMap({ projects, onSelectProject }: WorldMapProps) {
             }
           </Geographies>
 
-          {validProjects.map(project => (
+          {projectsWithOffsets.map(project => (
             <Marker
               key={project.id}
-              coordinates={[project.longitude, project.latitude]}
+              coordinates={[project.offsetLng, project.offsetLat]}
               onMouseEnter={(e) => {
                 setTooltip({ project, x: e.clientX, y: e.clientY })
               }}

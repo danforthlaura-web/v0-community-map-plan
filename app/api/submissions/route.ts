@@ -20,6 +20,8 @@ export async function POST(request: NextRequest) {
         email: formData.email,
         organization_name: formData.organizationName,
         location: formData.location,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
         organization_website: formData.organizationWebsite,
         start_year: formData.startYear,
         implementation_settings: formData.implementationSettings,

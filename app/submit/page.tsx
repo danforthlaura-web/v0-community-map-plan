@@ -2,10 +2,12 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Checkbox } from '@/components/ui/checkbox'
+import { LocationAutocomplete } from '@/components/location-autocomplete'
 
 export default function SubmitPage() {
   const [validationErrors, setValidationErrors] = useState<string[]>([])
@@ -18,6 +20,8 @@ export default function SubmitPage() {
     email: '',
     organizationName: '',
     location: '',
+    latitude: null as number | null,
+    longitude: null as number | null,
     organizationWebsite: '',
     startYear: '',
 
@@ -113,6 +117,7 @@ export default function SubmitPage() {
     if (!formData.email) errors.push('Your email is required')
     if (!formData.organizationName) errors.push('Organization name is required')
     if (!formData.location) errors.push('Location is required')
+    if (!formData.latitude || !formData.longitude) errors.push('Please select a location from the dropdown to verify it')
     if (!formData.startYear) errors.push('Start year is required')
     if (formData.implementationSettings.length === 0) errors.push('Please select at least one implementation setting')
     if (formData.learnerTypes.length === 0) errors.push('Please select at least one learner type')
@@ -141,7 +146,7 @@ export default function SubmitPage() {
         setSubmitSuccess(true)
         window.scrollTo({ top: 0, behavior: 'smooth' })
         setFormData({
-          name: '', email: '', organizationName: '', location: '', organizationWebsite: '', startYear: '',
+          name: '', email: '', organizationName: '', location: '', latitude: null, longitude: null, organizationWebsite: '', startYear: '',
           implementationSettings: [], learnerTypes: [], deviceUsage: [], clientDevices: [],
           serverDevices: [], clientDeviceTypes: [], hardwareModel: [], blendedLearningModel: [],
           kolibriUsageDescription: '', primaryLanguage: '', publicChannels: '', usesKolibriStudio: false,
@@ -166,9 +171,13 @@ export default function SubmitPage() {
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold">K</span>
-            </div>
+            <Image
+              src="/kolibri-logo.png"
+              alt="Kolibri"
+              width={32}
+              height={32}
+              className="h-8 w-8"
+            />
             <span className="font-bold text-lg text-foreground">Kolibri Map</span>
           </Link>
         </div>
@@ -223,8 +232,21 @@ export default function SubmitPage() {
                 <Input name="organizationName" value={formData.organizationName} onChange={handleInputChange} placeholder="Enter organization name" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Location (City, Country) *</label>
-                <Input name="location" value={formData.location} onChange={handleInputChange} placeholder="e.g., Nairobi, Kenya" />
+                <label className="block text-sm font-medium text-foreground mb-2">Location *</label>
+                <LocationAutocomplete
+                  value={formData.location}
+                  onChange={(location, latitude, longitude) => {
+                    setFormData(prev => ({
+                      ...prev,
+                      location,
+                      latitude,
+                      longitude,
+                    }))
+                  }}
+                  placeholder="Search for your city, town, or village..."
+                  disabled={isSubmitting}
+                />
+                <p className="text-xs text-muted-foreground mt-1">Start typing and select from the dropdown to verify your location</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">Organization Website</label>
@@ -367,7 +389,7 @@ export default function SubmitPage() {
                 <Input name="primaryLanguage" value={formData.primaryLanguage} onChange={handleInputChange} placeholder="e.g., English, Spanish, Swahili" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Favorite Channels from the Kolibri Library *</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Kolibri Library Channels *</label>
                 <Textarea
                   name="publicChannels"
                   value={formData.publicChannels}

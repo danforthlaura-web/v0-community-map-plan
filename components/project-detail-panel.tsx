@@ -22,13 +22,23 @@ export interface Project {
   organization_website?: string
   years_active?: number
   channels_used?: string[]
-  primary_use_case?: string
   primary_language?: string
   other_languages?: string[]
   customized_content?: boolean
   social_media_links?: Record<string, string>
   photo_url?: string
   program_links?: Array<{ title: string; url: string }>
+  kolibri_usage_description?: string
+  implementation_settings?: string[]
+  learner_types?: string[]
+  device_usage?: string[]
+  server_devices?: string[]
+  client_device_types?: string[]
+  hardware_model?: string[]
+  blended_learning_model?: string[]
+  uses_kolibri_studio?: boolean
+  testimonials?: string
+  contact_phone_number?: string
   created_at: string
 }
 
@@ -111,8 +121,8 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           )}
 
           {/* Stats row */}
-          {(project.number_of_students || project.number_of_teachers || project.number_of_devices) && (
-            <div className="mt-4 grid grid-cols-3 gap-3">
+          {(project.number_of_students || project.number_of_teachers) && (
+            <div className="mt-4 grid grid-cols-2 gap-3">
               {project.number_of_students != null && (
                 <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
                   <p className="text-2xl font-bold text-primary">{project.number_of_students.toLocaleString()}</p>
@@ -125,12 +135,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                   <p className="text-xs text-foreground/50 mt-0.5">Teachers</p>
                 </div>
               )}
-              {project.number_of_devices != null && (
-                <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-primary">{project.number_of_devices.toLocaleString()}</p>
-                  <p className="text-xs text-foreground/50 mt-0.5">Devices</p>
-                </div>
-              )}
             </div>
           )}
 
@@ -138,35 +142,52 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           <Section title="Organization">
             <Row label="Type" value={project.organization_type} />
             <Row label="Website" value={project.organization_website} />
-            <Row label="Years active" value={project.years_active} />
             <Row label="Started" value={project.implementation_date ? new Date(project.implementation_date).getFullYear() : undefined} />
           </Section>
 
           {/* Implementation */}
           <Section title="Implementation">
-            <Row label="Primary use case" value={project.primary_use_case} />
+            {project.implementation_settings && project.implementation_settings.length > 0 && (
+              <Row label="Settings" value={project.implementation_settings.join(', ')} />
+            )}
+            {project.learner_types && project.learner_types.length > 0 && (
+              <Row label="Learner types" value={project.learner_types.join(', ')} />
+            )}
+            {project.device_usage && project.device_usage.length > 0 && (
+              <Row label="Device usage" value={project.device_usage.join(', ')} />
+            )}
+            {project.server_devices && project.server_devices.length > 0 && (
+              <Row label="Server device(s)" value={project.server_devices.join(', ')} />
+            )}
+            {project.client_device_types && project.client_device_types.length > 0 && (
+              <Row label="Client device types" value={project.client_device_types.join(', ')} />
+            )}
+            {project.hardware_model && project.hardware_model.length > 0 && (
+              <Row label="Hardware model" value={project.hardware_model.join(', ')} />
+            )}
+            {project.blended_learning_model && project.blended_learning_model.length > 0 && (
+              <Row label="Blended learning model" value={project.blended_learning_model.join(', ')} />
+            )}
+            <Row label="Uses Kolibri Studio" value={project.uses_kolibri_studio} />
             <Row label="Customized content" value={project.customized_content} />
+            <Row label="Language" value={project.primary_language} />
+            {project.kolibri_usage_description && (
+              <div className="mt-2">
+                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">How Kolibri is Used</p>
+                <p className="text-sm text-foreground leading-relaxed">{project.kolibri_usage_description}</p>
+              </div>
+            )}
             {project.channels_used && project.channels_used.length > 0 && (
-              <div className="grid grid-cols-[140px_1fr] gap-2 text-sm">
-                <span className="text-foreground/50">Channels used</span>
-                <div className="flex flex-wrap gap-1.5">
+              <div className="mt-3">
+                <p className="text-sm text-foreground/50 mb-2">Kolibri Library Channels</p>
+                <div className="flex flex-wrap gap-2">
                   {project.channels_used.map(c => (
-                    <span key={c} className="inline-block bg-accent/20 text-foreground text-xs px-2 py-0.5 rounded-full">{c}</span>
+                    <span key={c} className="inline-block bg-accent/20 text-foreground text-xs px-3 py-1 rounded-full">{c}</span>
                   ))}
                 </div>
               </div>
             )}
           </Section>
-
-          {/* Language */}
-          <Section title="Language">
-            <Row label="Primary" value={project.primary_language} />
-            {project.other_languages && project.other_languages.length > 0 && (
-              <Row label="Other languages" value={project.other_languages.join(', ')} />
-            )}
-          </Section>
-
-
 
           {/* Program Links */}
           {project.program_links && project.program_links.length > 0 && (
@@ -209,6 +230,19 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             </Section>
           )}
 
+          {/* Additional Info */}
+          {(project.testimonials || project.contact_phone_number) && (
+            <Section title="Additional">
+              {project.contact_phone_number && <Row label="Phone" value={project.contact_phone_number} />}
+              {project.testimonials && (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">Testimonials</p>
+                  <p className="text-sm text-foreground leading-relaxed">{project.testimonials}</p>
+                </div>
+              )}
+            </Section>
+          )}
+
           {/* Contact */}
           <Section title="Contact">
             <Row label="Name" value={project.contact_name} />
@@ -217,7 +251,15 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
         </div>
 
         {/* Footer CTA */}
-        <div className="sticky bottom-0 bg-background border-t border-border px-6 py-4">
+        <div className="sticky bottom-0 bg-background border-t border-border px-6 py-4 space-y-3">
+          <a 
+            href={`mailto:implementations@learningequality.org?subject=Request Changes for: ${encodeURIComponent(project.organization_name)}&body=Hello,%0A%0AI would like to request changes to my organization's entry on the Kolibri Map:%0A%0AOrganization: ${encodeURIComponent(project.organization_name)}%0ALocation: ${encodeURIComponent(project.city + (project.region ? ', ' + project.region : '') + ', ' + project.country)}%0A%0AChanges requested:%0A%0A`}
+            className="block"
+          >
+            <Button variant="outline" className="w-full">
+              Request Changes
+            </Button>
+          </a>
           <a href={`mailto:${project.contact_email}`} className="block">
             <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
               Contact {project.contact_name?.split(' ')[0] ?? 'Team'}
