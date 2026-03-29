@@ -138,7 +138,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           <Section title="Organization">
             <Row label="Type" value={project.organization_type} />
             <Row label="Website" value={project.organization_website} />
-            <Row label="Years active" value={project.years_active} />
             <Row label="Started" value={project.implementation_date ? new Date(project.implementation_date).getFullYear() : undefined} />
           </Section>
 
