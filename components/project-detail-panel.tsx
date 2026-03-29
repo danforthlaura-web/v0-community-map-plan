@@ -121,8 +121,8 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           )}
 
           {/* Stats row */}
-          {(project.number_of_students || project.number_of_teachers || project.number_of_devices) && (
-            <div className="mt-4 grid grid-cols-3 gap-3">
+          {(project.number_of_students || project.number_of_teachers) && (
+            <div className="mt-4 grid grid-cols-2 gap-3">
               {project.number_of_students != null && (
                 <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
                   <p className="text-2xl font-bold text-primary">{project.number_of_students.toLocaleString()}</p>
@@ -133,12 +133,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                 <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
                   <p className="text-2xl font-bold text-primary">{project.number_of_teachers.toLocaleString()}</p>
                   <p className="text-xs text-foreground/50 mt-0.5">Teachers</p>
-                </div>
-              )}
-              {project.number_of_devices != null && (
-                <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-primary">{project.number_of_devices.toLocaleString()}</p>
-                  <p className="text-xs text-foreground/50 mt-0.5">Devices</p>
                 </div>
               )}
             </div>
