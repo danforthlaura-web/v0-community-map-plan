@@ -47,8 +47,7 @@ interface Submission {
   years_active: number
   customized_content: boolean
   challenges_faced: string
-  measurable_impact: string
-  success_stories: string
+
   photo_url: string
   program_links: Record<string, string>
   social_media_links: Record<string, string>
@@ -557,15 +556,6 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
                   </div>
                 )}
 
-                {submission.measurable_impact && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Measurable Impact</h4>
-                    <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
-                      {submission.measurable_impact}
-                    </p>
-                  </div>
-                )}
-
                 {submission.challenges_faced && (
                   <div>
                     <h4 className="text-sm font-semibold text-foreground mb-2">Challenges Faced</h4>
@@ -575,14 +565,6 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
                   </div>
                 )}
 
-                {submission.success_stories && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Success Stories</h4>
-                    <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
-                      {submission.success_stories}
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
 
