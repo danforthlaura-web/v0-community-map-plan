@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -170,9 +171,13 @@ export default function SubmitPage() {
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold">K</span>
-            </div>
+            <Image
+              src="/kolibri-logo.png"
+              alt="Kolibri"
+              width={32}
+              height={32}
+              className="h-8 w-8"
+            />
             <span className="font-bold text-lg text-foreground">Kolibri Map</span>
           </Link>
         </div>
