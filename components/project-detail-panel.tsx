@@ -187,7 +187,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                 <span className="text-foreground/50">Kolibri Library Channels</span>
                 <div className="flex flex-wrap gap-1.5">
                   {project.channels_used.map(c => (
-                    <span key={c} className="inline-block border border-border text-foreground text-xs px-2 py-0.5 rounded">{c}</span>
+                    <span key={c} className="inline-block bg-accent/20 text-foreground text-xs px-2 py-0.5 rounded-full">{c}</span>
                   ))}
                 </div>
               </div>
