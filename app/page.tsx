@@ -66,8 +66,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center mb-8">
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bird_flying-ioU4nyHSf3PMO3wn4AysprVRuyzVUK.png"
-              alt="Decorative path illustration"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
+              alt="Kolibri community journey illustration"
               className="w-full max-w-xl h-auto"
             />
           </div>
