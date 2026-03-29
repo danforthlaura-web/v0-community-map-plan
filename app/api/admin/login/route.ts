@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     // Create response with session cookie
     const response = NextResponse.json(
-      { success: true, user: data.user },
+      { success: true, user: data.user, session: data.session },
       { status: 200 }
     )
 
