@@ -19,6 +19,8 @@ export default function AdminLoginPage() {
     setLoading(true)
     setError('')
 
+    console.log('[v0] Login attempt with email:', email)
+
     try {
       const response = await fetch('/api/admin/login', {
         method: 'POST',
@@ -26,13 +28,22 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ email, password }),
       })
 
+      console.log('[v0] Login response status:', response.status)
+
+      const data = await response.json()
+      console.log('[v0] Login response data:', data)
+
       if (response.ok) {
+        console.log('[v0] Login successful, redirecting to dashboard')
         router.push('/admin/dashboard')
       } else {
-        const data = await response.json()
-        setError(data.error || 'Login failed')
+        const errorMsg = data.error || 'Login failed'
+        console.log('[v0] Login failed with error:', errorMsg)
+        setError(errorMsg)
       }
     } catch (err) {
+      const errMsg = err instanceof Error ? err.message : 'An error occurred'
+      console.log('[v0] Login error:', errMsg)
       setError('An error occurred. Please try again.')
     } finally {
       setLoading(false)
