@@ -6,7 +6,15 @@ const caveat = Caveat({ subsets: ["latin"] })
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background relative overflow-hidden">
+      {/* Watermark */}
+      <div className="pointer-events-none absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 opacity-[0.07] z-0" aria-hidden="true">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo_le_transparent-xPIXxKtIREQ9puTzIesIP9pn2900Lz.png"
+          alt=""
+          className="w-[480px] h-[480px] select-none"
+        />
+      </div>
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
