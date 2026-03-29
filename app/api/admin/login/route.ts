@@ -9,6 +9,7 @@ const supabase = createClient(
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json()
+    console.log('[v0] Login attempt for email:', email)
 
     // Sign in with Supabase Auth
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -16,7 +17,10 @@ export async function POST(request: NextRequest) {
       password,
     })
 
+    console.log('[v0] Supabase auth response:', { data: data?.user?.email, error: error?.message })
+
     if (error) {
+      console.log('[v0] Login error:', error.message)
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
