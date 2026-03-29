@@ -536,7 +536,7 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
 
                 {submission.channels_used && submission.channels_used.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Favorite Kolibri Library Channels</h4>
+                    <h4 className="text-sm font-semibold text-foreground mb-2">Kolibri Library Channels</h4>
                     <div className="flex flex-wrap gap-1">
                       {submission.channels_used.map((channel: string) => (
                         <Badge key={channel} variant="secondary" className="text-xs">{channel}</Badge>

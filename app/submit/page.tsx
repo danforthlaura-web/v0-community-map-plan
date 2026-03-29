@@ -389,7 +389,7 @@ export default function SubmitPage() {
                 <Input name="primaryLanguage" value={formData.primaryLanguage} onChange={handleInputChange} placeholder="e.g., English, Spanish, Swahili" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Favorite Channels from the Kolibri Library *</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Kolibri Library Channels *</label>
                 <Textarea
                   name="publicChannels"
                   value={formData.publicChannels}
