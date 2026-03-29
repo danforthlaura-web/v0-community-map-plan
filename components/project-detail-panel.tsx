@@ -217,7 +217,15 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
         </div>
 
         {/* Footer CTA */}
-        <div className="sticky bottom-0 bg-background border-t border-border px-6 py-4">
+        <div className="sticky bottom-0 bg-background border-t border-border px-6 py-4 space-y-3">
+          <a 
+            href={`mailto:hello@kolibrimap.org?subject=Request Changes for: ${encodeURIComponent(project.organization_name)}&body=Hello,%0A%0AI would like to request changes to my organization's entry on the Kolibri Map:%0A%0AOrganization: ${encodeURIComponent(project.organization_name)}%0ALocation: ${encodeURIComponent(project.city + (project.region ? ', ' + project.region : '') + ', ' + project.country)}%0A%0AChanges requested:%0A%0A`}
+            className="block"
+          >
+            <Button variant="outline" className="w-full">
+              Request Changes
+            </Button>
+          </a>
           <a href={`mailto:${project.contact_email}`} className="block">
             <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
               Contact {project.contact_name?.split(' ')[0] ?? 'Team'}
