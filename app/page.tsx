@@ -38,7 +38,7 @@ export default function Home() {
           <img 
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/map_logo-djHbsUU8M69ZuFazgsl8CFKRXtZ5zl.png" 
             alt="Community Map Logo" 
-            className="w-48 h-48 mx-auto mb-8"
+            className="max-w-md w-auto h-auto mx-auto mb-8"
           />
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
             Meet the global Kolibri community. Share your story
