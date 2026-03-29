@@ -11,9 +11,11 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold">K</span>
-            </div>
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri-logo-FBRiDzMv5OsQ140bWgi7Cvj6milUQW.png" 
+              alt="Kolibri Logo" 
+              className="w-8 h-8"
+            />
             <span className="font-bold text-lg text-foreground">Kolibri Map</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
@@ -97,11 +99,8 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-lg p-12 text-center border border-primary/20">
-          <h2 className={`${caveat.className} text-3xl font-bold text-foreground mb-4`}>Ready to Share Your Kolibri Story?</h2>
-          <p className="text-foreground/80 mb-8 max-w-2xl mx-auto">
-            Your implementation makes a difference.
-          </p>
+        <div className="text-center">
+          <h2 className={`${caveat.className} text-3xl font-bold text-foreground mb-8`}>Ready to Share Your Kolibri Story?</h2>
           <Link href="/submit">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Submit Your Project Now
