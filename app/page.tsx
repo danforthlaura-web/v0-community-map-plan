@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
       {/* Watermark */}
-      <div className="pointer-events-none absolute top-0 right-0 -translate-y-24 translate-x-32 opacity-[0.15] z-0" aria-hidden="true">
+      <div className="pointer-events-none absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/3 opacity-40 z-0" aria-hidden="true">
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo_le_transparent-xPIXxKtIREQ9puTzIesIP9pn2900Lz.png"
           alt=""
