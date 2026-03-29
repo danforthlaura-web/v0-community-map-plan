@@ -1,54 +1,68 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from 'bcryptjs'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json()
+    const { username, password } = await request.json()
+    console.log('[v0] Login attempt for username:', username)
 
-    // Sign in with Supabase Auth
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    // Look up admin user by username
+    const { data: adminUsers, error: lookupError } = await supabase
+      .from('admin_users')
+      .select('*')
+      .eq('username', username)
+      .single()
 
-    if (error) {
+    console.log('[v0] Admin user lookup:', { found: !!adminUsers, error: lookupError?.message })
+
+    if (lookupError || !adminUsers) {
+      console.log('[v0] User not found')
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
 
-    // Create response with session cookie
+    // Verify password
+    const passwordMatch = await bcrypt.compare(password, adminUsers.password_hash)
+    console.log('[v0] Password match:', passwordMatch)
+
+    if (!passwordMatch) {
+      console.log('[v0] Invalid password')
+      return NextResponse.json(
+        { error: 'Invalid credentials' },
+        { status: 401 }
+      )
+    }
+
+    // Create a mock session
+    const mockSession = {
+      access_token: `mock-token-${adminUsers.id}`,
+      refresh_token: `mock-refresh-${adminUsers.id}`,
+      user: {
+        id: adminUsers.id,
+        email: adminUsers.email,
+        username: adminUsers.username,
+      }
+    }
+
+    console.log('[v0] Login successful for user:', username)
+
+    // Create response with session
     const response = NextResponse.json(
-      { success: true, user: data.user },
+      { success: true, user: mockSession.user, session: mockSession },
       { status: 200 }
     )
 
-    // Set auth token as httpOnly cookie
-    response.cookies.set('sb-access-token', data.session?.access_token || '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-      path: '/',
-    })
-
-    response.cookies.set('sb-refresh-token', data.session?.refresh_token || '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    })
-
     return response
   } catch (error) {
-    console.error('Login error:', error)
+    console.error('[v0] Login error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

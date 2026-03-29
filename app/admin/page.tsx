@@ -1,15 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState } from 'react' // Admin login page
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function AdminLoginPage() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -19,20 +20,36 @@ export default function AdminLoginPage() {
     setLoading(true)
     setError('')
 
+    console.log('[v0] Login attempt with username:', username)
+
     try {
       const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       })
 
+      console.log('[v0] Login response status:', response.status)
+
+      const data = await response.json()
+      console.log('[v0] Login response data:', data)
+
       if (response.ok) {
-        router.push('/admin/dashboard')
+        console.log('[v0] Login successful, storing token')
+        // Store token and username for dashboard access
+        localStorage.setItem('admin_access_token', data.session?.access_token || '')
+        localStorage.setItem('admin_username', username)
+        // Redirect to dashboard
+        window.location.href = '/admin/dashboard'
+        return
       } else {
-        const data = await response.json()
-        setError(data.error || 'Login failed')
+        const errorMsg = data.error || 'Login failed'
+        console.log('[v0] Login failed with error:', errorMsg)
+        setError(errorMsg)
       }
     } catch (err) {
+      const errMsg = err instanceof Error ? err.message : 'An error occurred'
+      console.log('[v0] Login error:', errMsg)
       setError('An error occurred. Please try again.')
     } finally {
       setLoading(false)
@@ -53,10 +70,14 @@ export default function AdminLoginPage() {
         <Card className="w-full border-primary/20">
         <CardHeader>
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">K</span>
-            </div>
-            <span className="font-bold text-xl text-foreground">Kolibri</span>
+            <Image
+              src="/kolibri-logo.png"
+              alt="Kolibri Logo"
+              width={40}
+              height={40}
+              className="rounded-lg"
+            />
+            <span className="font-bold text-xl text-foreground">Kolibri Map</span>
           </div>
           <CardTitle>Admin Login</CardTitle>
           <CardDescription>Access the submission review dashboard</CardDescription>
@@ -70,13 +91,13 @@ export default function AdminLoginPage() {
             )}
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
-                Email
+                Username
               </label>
               <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@example.com"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="admin"
                 required
               />
             </div>

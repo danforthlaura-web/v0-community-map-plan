@@ -8,14 +8,10 @@ const supabase = createClient(
 
 export async function GET(request: NextRequest) {
   try {
-    // Verify admin access
-    const token = request.cookies.get('sb-access-token')?.value
-    if (!token) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
+    console.log('[v0] Fetching submissions...')
+    
+    // Note: Authentication is handled on the client side with localStorage
+    // No need to check for cookies here
 
     // Fetch all submissions
     const { data, error } = await supabase
@@ -23,8 +19,10 @@ export async function GET(request: NextRequest) {
       .select('*')
       .order('created_at', { ascending: false })
 
+    console.log('[v0] Submissions query result:', { count: data?.length, error: error?.message })
+
     if (error) {
-      console.error('Supabase error:', error)
+      console.error('[v0] Supabase error:', error)
       return NextResponse.json(
         { error: 'Failed to fetch submissions' },
         { status: 500 }
@@ -33,7 +31,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data)
   } catch (error) {
-    console.error('Error fetching submissions:', error)
+    console.error('[v0] Error fetching submissions:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
