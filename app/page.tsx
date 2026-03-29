@@ -68,7 +68,7 @@ export default function Home() {
             <img
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
               alt="Kolibri community journey illustration"
-              className="w-full max-w-xl h-auto"
+              className="w-full max-w-lg h-auto"
             />
           </div>
           <h2 className="text-3xl font-bold text-foreground mb-12 text-center">How It Works</h2>
