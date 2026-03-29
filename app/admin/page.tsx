@@ -34,8 +34,11 @@ export default function AdminLoginPage() {
       console.log('[v0] Login response data:', data)
 
       if (response.ok) {
-        console.log('[v0] Login successful, redirecting to dashboard')
-        // Use window.location for full page reload to ensure cookies are sent
+        console.log('[v0] Login successful, storing token')
+        // Store token and email for dashboard access
+        localStorage.setItem('admin_access_token', data.session?.access_token || '')
+        localStorage.setItem('admin_email', email)
+        // Redirect to dashboard
         window.location.href = '/admin/dashboard'
         return
       } else {

@@ -75,21 +75,18 @@ export default function AdminDashboard() {
 
   const checkAuth = async () => {
     try {
-      console.log('[v0] Checking auth...')
-      const response = await fetch('/api/admin/check-auth')
-      console.log('[v0] Check auth response status:', response.status)
-      const responseText = await response.text()
-      console.log('[v0] Check auth response text:', responseText)
+      console.log('[v0] Checking auth from localStorage...')
+      const token = localStorage.getItem('admin_access_token')
+      const email = localStorage.getItem('admin_email')
       
-      if (!response.ok) {
-        console.log('[v0] Auth check failed with status:', response.status)
+      if (!token || !email) {
+        console.log('[v0] No token or email in localStorage, redirecting to login')
         router.push('/admin')
         return
       }
       
-      const data = JSON.parse(responseText)
-      console.log('[v0] Auth check successful, data:', data)
-      setAdminUser(data.user || data)
+      console.log('[v0] Found token and email in localStorage, user:', email)
+      setAdminUser({ email })
       fetchSubmissions()
     } catch (error) {
       console.log('[v0] Auth check error:', error)
@@ -166,7 +163,10 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/logout', { method: 'POST' })
+      // Clear localStorage
+      localStorage.removeItem('admin_access_token')
+      localStorage.removeItem('admin_email')
+      // Redirect to login
       router.push('/admin')
     } catch (error) {
       console.error('Error logging out:', error)
