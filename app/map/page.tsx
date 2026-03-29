@@ -79,9 +79,11 @@ export default function MapPage() {
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold">K</span>
-            </div>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri-logo-FBRiDzMv5OsQ140bWgi7Cvj6milUQW.png"
+              alt="Kolibri Logo"
+              className="w-8 h-8"
+            />
             <span className="font-bold text-lg text-foreground">Kolibri Map</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
