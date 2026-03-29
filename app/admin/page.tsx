@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">K</span>
             </div>
-            <span className="font-bold text-xl text-foreground">Kolibri</span>
+            <span className="font-bold text-xl text-foreground">Kolibri Map</span>
           </div>
           <CardTitle>Admin Login</CardTitle>
           <CardDescription>Access the submission review dashboard</CardDescription>

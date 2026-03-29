@@ -210,7 +210,7 @@ export default function AdminDashboard() {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold">K</span>
             </div>
-            <span className="font-bold text-lg text-foreground">Kolibri Admin</span>
+            <span className="font-bold text-lg text-foreground">Kolibri Map Admin</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-foreground/60">
