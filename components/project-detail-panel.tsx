@@ -22,13 +22,23 @@ export interface Project {
   organization_website?: string
   years_active?: number
   channels_used?: string[]
-  primary_use_case?: string
   primary_language?: string
   other_languages?: string[]
   customized_content?: boolean
   social_media_links?: Record<string, string>
   photo_url?: string
   program_links?: Array<{ title: string; url: string }>
+  kolibri_usage_description?: string
+  implementation_settings?: string[]
+  learner_types?: string[]
+  device_usage?: string[]
+  server_devices?: string[]
+  client_device_types?: string[]
+  hardware_model?: string[]
+  blended_learning_model?: string[]
+  uses_kolibri_studio?: boolean
+  testimonials?: string
+  contact_phone_number?: string
   created_at: string
 }
 
@@ -143,9 +153,37 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
 
           {/* Implementation */}
           <Section title="Implementation">
+            {project.implementation_settings && project.implementation_settings.length > 0 && (
+              <Row label="Settings" value={project.implementation_settings.join(', ')} />
+            )}
+            {project.learner_types && project.learner_types.length > 0 && (
+              <Row label="Learner types" value={project.learner_types.join(', ')} />
+            )}
+            {project.device_usage && project.device_usage.length > 0 && (
+              <Row label="Device usage" value={project.device_usage.join(', ')} />
+            )}
+            {project.server_devices && project.server_devices.length > 0 && (
+              <Row label="Server device(s)" value={project.server_devices.join(', ')} />
+            )}
+            {project.client_device_types && project.client_device_types.length > 0 && (
+              <Row label="Client device types" value={project.client_device_types.join(', ')} />
+            )}
+            {project.hardware_model && project.hardware_model.length > 0 && (
+              <Row label="Hardware model" value={project.hardware_model.join(', ')} />
+            )}
+            {project.blended_learning_model && project.blended_learning_model.length > 0 && (
+              <Row label="Blended learning model" value={project.blended_learning_model.join(', ')} />
+            )}
+            <Row label="Uses Kolibri Studio" value={project.uses_kolibri_studio} />
             <Row label="Customized content" value={project.customized_content} />
+            {project.kolibri_usage_description && (
+              <div className="mt-2">
+                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">How Kolibri is Used</p>
+                <p className="text-sm text-foreground leading-relaxed">{project.kolibri_usage_description}</p>
+              </div>
+            )}
             {project.channels_used && project.channels_used.length > 0 && (
-              <div className="grid grid-cols-[140px_1fr] gap-2 text-sm">
+              <div className="grid grid-cols-[140px_1fr] gap-2 text-sm mt-3">
                 <span className="text-foreground/50">Kolibri Library Channels</span>
                 <div className="flex flex-wrap gap-1.5">
                   {project.channels_used.map(c => (
@@ -203,6 +241,19 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                     </a>
                   </div>
                 ) : null
+              )}
+            </Section>
+          )}
+
+          {/* Additional Info */}
+          {(project.testimonials || project.contact_phone_number) && (
+            <Section title="Additional">
+              {project.contact_phone_number && <Row label="Phone" value={project.contact_phone_number} />}
+              {project.testimonials && (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">Testimonials</p>
+                  <p className="text-sm text-foreground leading-relaxed">{project.testimonials}</p>
+                </div>
               )}
             </Section>
           )}
