@@ -176,6 +176,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             )}
             <Row label="Uses Kolibri Studio" value={project.uses_kolibri_studio} />
             <Row label="Customized content" value={project.customized_content} />
+            <Row label="Language" value={project.primary_language} />
             {project.kolibri_usage_description && (
               <div className="mt-2">
                 <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">How Kolibri is Used</p>
@@ -193,13 +194,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               </div>
             )}
           </Section>
-
-          {/* Language */}
-          <Section title="Language">
-            <Row label="Language" value={project.primary_language} />
-          </Section>
-
-
 
           {/* Program Links */}
           {project.program_links && project.program_links.length > 0 && (
