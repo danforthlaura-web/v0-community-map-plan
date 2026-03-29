@@ -1,10 +1,10 @@
--- Update first approved project with all form fields filled in
-UPDATE projects
+-- Update first approved submission with all form fields filled in
+UPDATE submissions
 SET
   implementation_settings = ARRAY['School', 'Community learning center'],
   learner_types = ARRAY['Primary school students', 'Secondary school students', 'Teachers/Educators'],
   device_usage = ARRAY['Individual devices', 'Shared devices in rotation'],
-  num_client_devices = '25-50',
+  client_devices = ARRAY['25-50 devices'],
   server_devices = ARRAY['Mini PC / Intel NUC', 'Raspberry Pi'],
   client_device_types = ARRAY['Tablets', 'Laptops', 'Desktop computers'],
   hardware_model = ARRAY['Endless OS'],
@@ -16,5 +16,6 @@ SET
   number_of_students = 850,
   number_of_teachers = 32,
   channels_used = ARRAY['Khan Academy', 'CK-12', 'African Storybook', 'PhET Interactive Simulations', 'Pratham Books']
-WHERE status = 'approved'
-LIMIT 1;
+WHERE id = (
+  SELECT id FROM submissions WHERE status = 'approved' ORDER BY created_at ASC LIMIT 1
+);
