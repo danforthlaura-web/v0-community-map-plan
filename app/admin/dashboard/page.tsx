@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -207,9 +208,13 @@ export default function AdminDashboard() {
       <header className="border-b border-border bg-card sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold">K</span>
-            </div>
+            <Image
+              src="/kolibri-logo.png"
+              alt="Kolibri Logo"
+              width={32}
+              height={32}
+              className="rounded-lg"
+            />
             <span className="font-bold text-lg text-foreground">Kolibri Map Admin</span>
           </Link>
           <div className="flex items-center gap-4">

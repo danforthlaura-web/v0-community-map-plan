@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -69,9 +69,13 @@ export default function AdminLoginPage() {
         <Card className="w-full border-primary/20">
         <CardHeader>
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">K</span>
-            </div>
+            <Image
+              src="/kolibri-logo.png"
+              alt="Kolibri Logo"
+              width={40}
+              height={40}
+              className="rounded-lg"
+            />
             <span className="font-bold text-xl text-foreground">Kolibri Map</span>
           </div>
           <CardTitle>Admin Login</CardTitle>
