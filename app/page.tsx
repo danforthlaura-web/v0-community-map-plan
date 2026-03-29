@@ -64,6 +64,13 @@ export default function Home() {
       {/* Features Section */}
       <section className="bg-secondary/30 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center mb-8">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
+              alt="Kolibri community journey illustration"
+              className="w-full max-w-lg h-auto"
+            />
+          </div>
           <h2 className="text-3xl font-bold text-foreground mb-12 text-center">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="p-6 rounded-lg bg-card border border-border">
@@ -100,7 +107,7 @@ export default function Home() {
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
-          <h2 className={`${caveat.className} text-3xl font-bold text-foreground mb-8`}>Ready to Share Your Kolibri Story?</h2>
+          <h2 className={`${caveat.className} text-4xl font-bold text-foreground mb-8`}>Ready to Share Your Kolibri Story?</h2>
           <Link href="/submit">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Submit Your Project Now
