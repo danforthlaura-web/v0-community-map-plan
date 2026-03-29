@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Caveat } from 'next/font/google'
+import { Figtree, Geist_Mono, Caveat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
+const _figtree = Figtree({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 const caveat = Caveat({ subsets: ["latin"] });
 

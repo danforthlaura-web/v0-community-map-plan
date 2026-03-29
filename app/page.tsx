@@ -36,9 +36,9 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="text-center max-w-3xl mx-auto">
           <img 
-            src="/images/kolibri-logo.png" 
-            alt="Kolibri Logo" 
-            className="w-24 h-24 mx-auto mb-8"
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/map_logo-djHbsUU8M69ZuFazgsl8CFKRXtZ5zl.png" 
+            alt="Community Map Logo" 
+            className="max-w-md w-auto h-auto mx-auto mb-8"
           />
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
             Meet the global Kolibri community. Share your story
