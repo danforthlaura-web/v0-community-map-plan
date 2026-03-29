@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create a mock session (since we're using username-based auth instead of Supabase Auth)
+    // Create a mock session
     const mockSession = {
       access_token: `mock-token-${adminUsers.id}`,
       refresh_token: `mock-refresh-${adminUsers.id}`,
