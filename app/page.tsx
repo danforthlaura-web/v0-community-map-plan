@@ -64,6 +64,13 @@ export default function Home() {
       {/* Features Section */}
       <section className="bg-secondary/30 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center mb-6">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bird_flying-ioU4nyHSf3PMO3wn4AysprVRuyzVUK.png"
+              alt="Decorative path illustration"
+              className="w-64 h-auto"
+            />
+          </div>
           <h2 className="text-3xl font-bold text-foreground mb-12 text-center">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="p-6 rounded-lg bg-card border border-border">
