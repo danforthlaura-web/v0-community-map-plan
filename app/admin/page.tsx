@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export default function AdminLoginPage() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -19,13 +19,13 @@ export default function AdminLoginPage() {
     setLoading(true)
     setError('')
 
-    console.log('[v0] Login attempt with email:', email)
+    console.log('[v0] Login attempt with username:', username)
 
     try {
       const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       })
 
       console.log('[v0] Login response status:', response.status)
@@ -35,9 +35,9 @@ export default function AdminLoginPage() {
 
       if (response.ok) {
         console.log('[v0] Login successful, storing token')
-        // Store token and email for dashboard access
+        // Store token and username for dashboard access
         localStorage.setItem('admin_access_token', data.session?.access_token || '')
-        localStorage.setItem('admin_email', email)
+        localStorage.setItem('admin_username', username)
         // Redirect to dashboard
         window.location.href = '/admin/dashboard'
         return
@@ -86,13 +86,13 @@ export default function AdminLoginPage() {
             )}
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
-                Email
+                Username
               </label>
               <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@example.com"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="admin"
                 required
               />
             </div>

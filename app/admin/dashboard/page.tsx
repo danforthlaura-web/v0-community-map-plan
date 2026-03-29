@@ -55,7 +55,7 @@ interface Submission {
 }
 
 interface AdminUser {
-  email: string
+  username: string
 }
 
 export default function AdminDashboard() {
@@ -77,16 +77,16 @@ export default function AdminDashboard() {
     try {
       console.log('[v0] Checking auth from localStorage...')
       const token = localStorage.getItem('admin_access_token')
-      const email = localStorage.getItem('admin_email')
+      const username = localStorage.getItem('admin_username')
       
-      if (!token || !email) {
-        console.log('[v0] No token or email in localStorage, redirecting to login')
+      if (!token || !username) {
+        console.log('[v0] No token or username in localStorage, redirecting to login')
         router.push('/admin')
         return
       }
       
-      console.log('[v0] Found token and email in localStorage, user:', email)
-      setAdminUser({ email })
+      console.log('[v0] Found token and username in localStorage, user:', username)
+      setAdminUser({ username })
       fetchSubmissions()
     } catch (error) {
       console.log('[v0] Auth check error:', error)
@@ -214,7 +214,7 @@ export default function AdminDashboard() {
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-foreground/60">
-              {adminUser?.email}
+              {adminUser?.username}
             </span>
             <Button
               variant="outline"
