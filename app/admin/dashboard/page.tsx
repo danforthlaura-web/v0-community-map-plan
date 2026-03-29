@@ -75,15 +75,24 @@ export default function AdminDashboard() {
 
   const checkAuth = async () => {
     try {
+      console.log('[v0] Checking auth...')
       const response = await fetch('/api/admin/check-auth')
+      console.log('[v0] Check auth response status:', response.status)
+      const responseText = await response.text()
+      console.log('[v0] Check auth response text:', responseText)
+      
       if (!response.ok) {
+        console.log('[v0] Auth check failed with status:', response.status)
         router.push('/admin')
         return
       }
-      const data = await response.json()
-      setAdminUser(data.user)
+      
+      const data = JSON.parse(responseText)
+      console.log('[v0] Auth check successful, data:', data)
+      setAdminUser(data.user || data)
       fetchSubmissions()
     } catch (error) {
+      console.log('[v0] Auth check error:', error)
       router.push('/admin')
     }
   }
