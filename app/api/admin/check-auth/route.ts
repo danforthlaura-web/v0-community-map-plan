@@ -27,12 +27,14 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Check if user is an admin (verify against admin_users table)
+    // Check if user is an admin (verify against admin_users table by email)
     const { data: adminData, error: adminError } = await supabase
       .from('admin_users')
       .select('*')
-      .eq('user_id', data.user.id)
+      .eq('email', data.user.email)
       .single()
+
+    console.log('[v0] Admin check for email:', data.user.email, 'Result:', { adminData, adminError: adminError?.message })
 
     if (adminError || !adminData) {
       return NextResponse.json(
