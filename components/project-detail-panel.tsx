@@ -4,42 +4,44 @@ import { Button } from '@/components/ui/button'
 
 export interface Project {
   id: string
+  created_at: string
+  // Basic Details
+  name: string
+  email: string
   organization_name: string
-  contact_name: string
-  contact_email: string
-  contact_phone?: string
-  country: string
-  region?: string
-  city: string
+  location: string
   latitude: number
   longitude: number
-  project_description: string
-  implementation_date?: string
-  number_of_students?: number
-  number_of_teachers?: number
-  number_of_devices?: number
-  organization_type?: string
   organization_website?: string
-  years_active?: number
-  channels_used?: string[]
-  primary_language?: string
-  other_languages?: string[]
-  customized_content?: boolean
-  social_media_links?: Record<string, string>
-  photo_url?: string
-  program_links?: Array<{ title: string; url: string }>
-  kolibri_usage_description?: string
+  start_year?: string
+  // Implementation Details
   implementation_settings?: string[]
   learner_types?: string[]
+  number_of_learners?: string
+  number_of_teachers?: string
   device_usage?: string[]
   server_devices?: string[]
   client_device_types?: string[]
   hardware_model?: string[]
   blended_learning_model?: string[]
+  kolibri_usage_description?: string
+  // Content
+  primary_language?: string
+  public_channels?: string
   uses_kolibri_studio?: boolean
+  // Media & Social
+  photo_url?: string
+  program_links?: Array<{ title: string; url: string }>
   testimonials?: string
-  contact_phone_number?: string
-  created_at: string
+  reports?: string
+  twitter_handle?: string
+  facebook_handle?: string
+  instagram_handle?: string
+  linkedin_handle?: string
+  forum_username?: string
+  other_social?: string
+  receive_updates?: boolean
+  email_visible?: boolean
 }
 
 interface ProjectDetailPanelProps {
@@ -70,9 +72,6 @@ function Row({ label, value }: { label: string; value?: string | number | boolea
 export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPanelProps) {
   if (!project) return null
 
-  const socialLinks = project.social_media_links ?? {}
-  const hasSocial = Object.values(socialLinks).some(v => v)
-
   return (
     <>
       {/* Backdrop */}
@@ -93,7 +92,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
         <div className="sticky top-0 bg-background border-b border-border px-6 py-4 flex items-start justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-foreground leading-tight">{project.organization_name}</h2>
-            <p className="text-sm text-foreground/60 mt-0.5">{project.city}{project.region ? `, ${project.region}` : ''}, {project.country}</p>
+            <p className="text-sm text-foreground/60 mt-0.5">{project.location}</p>
           </div>
           <button
             onClick={onClose}
@@ -116,22 +115,22 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           )}
 
           {/* Description */}
-          {project.project_description && (
-            <p className="text-sm text-foreground leading-relaxed">{project.project_description}</p>
+          {project.kolibri_usage_description && (
+            <p className="text-sm text-foreground leading-relaxed">{project.kolibri_usage_description}</p>
           )}
 
           {/* Stats row */}
-          {(project.number_of_students || project.number_of_teachers) && (
+          {(project.number_of_learners || project.number_of_teachers) && (
             <div className="mt-4 grid grid-cols-2 gap-3">
-              {project.number_of_students != null && (
+              {project.number_of_learners && (
                 <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-primary">{project.number_of_students.toLocaleString()}</p>
-                  <p className="text-xs text-foreground/50 mt-0.5">Students</p>
+                  <p className="text-2xl font-bold text-primary">{project.number_of_learners}</p>
+                  <p className="text-xs text-foreground/50 mt-0.5">Learners</p>
                 </div>
               )}
-              {project.number_of_teachers != null && (
+              {project.number_of_teachers && (
                 <div className="bg-primary/5 border border-primary/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-primary">{project.number_of_teachers.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-primary">{project.number_of_teachers}</p>
                   <p className="text-xs text-foreground/50 mt-0.5">Teachers</p>
                 </div>
               )}
@@ -140,9 +139,8 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
 
           {/* Organization */}
           <Section title="Organization">
-            <Row label="Type" value={project.organization_type} />
             <Row label="Website" value={project.organization_website} />
-            <Row label="Started" value={project.implementation_date ? new Date(project.implementation_date).getFullYear() : undefined} />
+            <Row label="Started" value={project.start_year} />
           </Section>
 
           {/* Implementation */}
@@ -169,22 +167,11 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               <Row label="Blended learning model" value={project.blended_learning_model.join(', ')} />
             )}
             <Row label="Uses Kolibri Studio" value={project.uses_kolibri_studio} />
-            <Row label="Customized content" value={project.customized_content} />
             <Row label="Language" value={project.primary_language} />
-            {project.kolibri_usage_description && (
-              <div className="mt-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">How Kolibri is Used</p>
-                <p className="text-sm text-foreground leading-relaxed">{project.kolibri_usage_description}</p>
-              </div>
-            )}
-            {project.channels_used && project.channels_used.length > 0 && (
+            {project.public_channels && (
               <div className="mt-3">
-                <p className="text-sm text-foreground/50 mb-2">Kolibri Library Channels</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.channels_used.map(c => (
-                    <span key={c} className="inline-block bg-accent/20 text-foreground text-xs px-3 py-1 rounded-full">{c}</span>
-                  ))}
-                </div>
+                <p className="text-sm text-foreground/50 mb-2">Public Channels</p>
+                <p className="text-sm text-foreground leading-relaxed">{project.public_channels}</p>
               </div>
             )}
           </Section>
@@ -210,61 +197,49 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
           )}
 
           {/* Social / links */}
-          {hasSocial && (
+          {(project.twitter_handle || project.facebook_handle || project.instagram_handle || project.linkedin_handle || project.forum_username || project.other_social) && (
             <Section title="Links & Social Media">
-              {Object.entries(socialLinks).map(([key, val]) =>
-                val ? (
-                  <div key={key} className="grid grid-cols-[140px_1fr] gap-2 text-sm">
-                    <span className="text-foreground/50 capitalize">{key}</span>
-                    <a
-                      href={val.startsWith('http') ? val : `https://${val}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary underline underline-offset-2 truncate"
-                    >
-                      {val}
-                    </a>
-                  </div>
-                ) : null
-              )}
+              <Row label="Twitter" value={project.twitter_handle} />
+              <Row label="Facebook" value={project.facebook_handle} />
+              <Row label="Instagram" value={project.instagram_handle} />
+              <Row label="LinkedIn" value={project.linkedin_handle} />
+              <Row label="Forum Username" value={project.forum_username} />
+              <Row label="Other" value={project.other_social} />
+              {project.reports && <Row label="Reports" value={project.reports} />}
             </Section>
           )}
 
           {/* Additional Info */}
-          {(project.testimonials || project.contact_phone_number) && (
-            <Section title="Additional">
-              {project.contact_phone_number && <Row label="Phone" value={project.contact_phone_number} />}
-              {project.testimonials && (
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-foreground/40 mb-1">Testimonials</p>
-                  <p className="text-sm text-foreground leading-relaxed">{project.testimonials}</p>
-                </div>
-              )}
+          {project.testimonials && (
+            <Section title="Testimonials">
+              <p className="text-sm text-foreground leading-relaxed">{project.testimonials}</p>
             </Section>
           )}
 
           {/* Contact */}
           <Section title="Contact">
-            <Row label="Name" value={project.contact_name} />
-            {project.contact_phone && <Row label="Phone" value={project.contact_phone} />}
+            <Row label="Submitted by" value={project.name} />
+            {project.email_visible && <Row label="Email" value={project.email} />}
           </Section>
         </div>
 
         {/* Footer CTA */}
         <div className="sticky bottom-0 bg-background border-t border-border px-6 py-4 space-y-3">
           <a 
-            href={`mailto:implementations@learningequality.org?subject=Request Changes for: ${encodeURIComponent(project.organization_name)}&body=Hello,%0A%0AI would like to request changes to my organization's entry on the Kolibri Map:%0A%0AOrganization: ${encodeURIComponent(project.organization_name)}%0ALocation: ${encodeURIComponent(project.city + (project.region ? ', ' + project.region : '') + ', ' + project.country)}%0A%0AChanges requested:%0A%0A`}
+            href={`mailto:implementations@learningequality.org?subject=Request Changes for: ${encodeURIComponent(project.organization_name)}&body=Hello,%0A%0AI would like to request changes to my organization's entry on the Kolibri Map:%0A%0AOrganization: ${encodeURIComponent(project.organization_name)}%0ALocation: ${encodeURIComponent(project.location)}%0A%0AChanges requested:%0A%0A`}
             className="block"
           >
             <Button variant="outline" className="w-full">
               Request Changes
             </Button>
           </a>
-          <a href={`mailto:${project.contact_email}`} className="block">
-            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-              Contact {project.contact_name?.split(' ')[0] ?? 'Team'}
-            </Button>
-          </a>
+          {project.email && (
+            <a href={`mailto:${project.email}`} className="block">
+              <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                Contact {project.name?.split(' ')[0] ?? 'Team'}
+              </Button>
+            </a>
+          )}
         </div>
       </aside>
     </>

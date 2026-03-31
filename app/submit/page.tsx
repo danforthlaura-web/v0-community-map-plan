@@ -28,8 +28,9 @@ export default function SubmitPage() {
     // Implementation Details
     implementationSettings: [] as string[],
     learnerTypes: [] as string[],
+    numberOfLearners: '',
+    numberOfTeachers: '',
     deviceUsage: [] as string[],
-    clientDevices: [] as string[],
     serverDevices: [] as string[],
     clientDeviceTypes: [] as string[],
     hardwareModel: [] as string[],
@@ -147,8 +148,8 @@ export default function SubmitPage() {
         window.scrollTo({ top: 0, behavior: 'smooth' })
         setFormData({
           name: '', email: '', organizationName: '', location: '', latitude: null, longitude: null, organizationWebsite: '', startYear: '',
-          implementationSettings: [], learnerTypes: [], deviceUsage: [], clientDevices: [],
-          serverDevices: [], clientDeviceTypes: [], hardwareModel: [], blendedLearningModel: [],
+          implementationSettings: [], learnerTypes: [], numberOfLearners: '', numberOfTeachers: '',
+          deviceUsage: [], serverDevices: [], clientDeviceTypes: [], hardwareModel: [], blendedLearningModel: [],
           kolibriUsageDescription: '', primaryLanguage: '', publicChannels: '', usesKolibriStudio: false,
           photoUrl: '', photoFile: null, programLinks: [], testimonials: '', reports: '',
           twitterHandle: '', facebookHandle: '', instagramHandle: '', linkedInHandle: '',
@@ -296,24 +297,32 @@ export default function SubmitPage() {
               </div>
 
               <div>
+                <label className="block text-sm font-medium text-foreground mb-2">Number of Learners</label>
+                <Input
+                  name="numberOfLearners"
+                  value={formData.numberOfLearners}
+                  onChange={handleInputChange}
+                  placeholder="e.g., 120"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">Number of Teachers</label>
+                <Input
+                  name="numberOfTeachers"
+                  value={formData.numberOfTeachers}
+                  onChange={handleInputChange}
+                  placeholder="e.g., 8"
+                />
+              </div>
+
+              <div>
                 <label className="block text-sm font-medium text-foreground mb-3">Device Usage During Kolibri Session</label>
                 <div className="space-y-2">
                   {['Individual learning', 'Group work', 'Whole class instruction'].map(usage => (
                     <label key={usage} className="flex items-center gap-2 cursor-pointer">
                       <Checkbox checked={formData.deviceUsage.includes(usage)} onCheckedChange={() => handleCheckboxGroup('deviceUsage', usage)} />
                       <span className="text-sm text-foreground">{usage}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-3">Number of Client Devices per Server</label>
-                <div className="space-y-2">
-                  {['1-10', '11-20', '21-30', 'More than 30'].map(range => (
-                    <label key={range} className="flex items-center gap-2 cursor-pointer">
-                      <Checkbox checked={formData.clientDevices.includes(range)} onCheckedChange={() => handleCheckboxGroup('clientDevices', range)} />
-                      <span className="text-sm text-foreground">{range}</span>
                     </label>
                   ))}
                 </div>

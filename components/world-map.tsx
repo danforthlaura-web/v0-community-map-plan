@@ -185,11 +185,11 @@ export default function WorldMap({ projects, onSelectProject }: WorldMapProps) {
               {tooltip.project.organization_name}
             </p>
             <p className="text-xs text-foreground/60 mt-1">
-              {tooltip.project.city}, {tooltip.project.country}
+              {tooltip.project.location}
             </p>
-            {tooltip.project.number_of_students > 0 && (
+            {tooltip.project.number_of_learners && (
               <p className="text-xs text-foreground/60 mt-0.5">
-                {tooltip.project.number_of_students.toLocaleString()} students
+                {tooltip.project.number_of_learners} learners
               </p>
             )}
             <p className="text-xs text-primary mt-2">Click to view details</p>
