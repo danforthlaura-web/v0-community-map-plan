@@ -41,7 +41,7 @@ export default function Home() {
             className="max-w-md w-auto h-auto mx-auto mb-8"
           />
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-            Meet the global Kolibri community. Share your story
+            Meet the Kolibri community. Share your story
           </h1>
           <p className="text-lg text-foreground/80 mb-8 text-pretty">
             Connect with implementers using Kolibri to provide offline learning to teachers and learners across the globe. Share your story and find inspiration from others in the community.

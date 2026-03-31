@@ -46,7 +46,6 @@ interface Submission {
   number_of_devices: number
   years_active: number
   customized_content: boolean
-  challenges_faced: string
 
   photo_url: string
   program_links: Record<string, string>
@@ -556,14 +555,7 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
                   </div>
                 )}
 
-                {submission.challenges_faced && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Challenges Faced</h4>
-                    <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
-                      {submission.challenges_faced}
-                    </p>
-                  </div>
-                )}
+
 
               </div>
             </div>
