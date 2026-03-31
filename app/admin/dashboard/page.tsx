@@ -23,42 +23,35 @@ interface Submission {
   created_at: string
   updated_at: string
   status: 'pending' | 'approved' | 'rejected'
-  // Basic Details
-  name: string
-  email: string
   organization_name: string
-  location: string
+  organization_type: string
+  organization_website: string
+  contact_name: string
+  contact_email: string
+  contact_phone: string
+  country: string
+  region: string
+  city: string
   latitude: number
   longitude: number
-  organization_website: string
-  start_year: string
-  // Implementation Details
-  implementation_settings: string[]
-  learner_types: string[]
-  device_usage: string[]
-  client_devices: string[]
-  server_devices: string[]
-  client_device_types: string[]
-  hardware_model: string[]
-  blended_learning_model: string[]
-  kolibri_usage_description: string
-  // Content
+  project_description: string
+  primary_use_case: string
   primary_language: string
-  public_channels: string
-  uses_kolibri_studio: boolean
-  // Media & Social
+  other_languages: string[]
+  kolibri_version: string
+  channels_used: string[]
+  implementation_date: string
+  number_of_students: number
+  number_of_teachers: number
+  number_of_devices: number
+  years_active: number
+  customized_content: boolean
+  challenges_faced: string
+
   photo_url: string
-  program_links: { title: string; url: string }[]
-  testimonials: string
-  reports: string
-  twitter_handle: string
-  facebook_handle: string
-  instagram_handle: string
-  linkedin_handle: string
-  forum_username: string
-  other_social: string
-  receive_updates: boolean
-  email_visible: boolean
+  program_links: Record<string, string>
+  social_media_links: Record<string, string>
+  additional_notes: string
 }
 
 interface AdminUser {
@@ -415,6 +408,11 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
     })
   }
 
+  const getLocation = () => {
+    const parts = [submission.city, submission.region, submission.country].filter(Boolean)
+    return parts.join(', ') || 'Location not provided'
+  }
+
   return (
     <div className="border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
       {/* Header Row */}
@@ -426,16 +424,19 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
               <Badge className={getStatusColor(submission.status)}>
                 {submission.status}
               </Badge>
+              {submission.organization_type && (
+                <Badge variant="outline">{submission.organization_type}</Badge>
+              )}
             </div>
             <div className="grid sm:grid-cols-2 gap-2 text-sm text-muted-foreground">
               <p>
-                <span className="font-medium text-foreground">Submitted by:</span> {submission.name || 'N/A'}
+                <span className="font-medium text-foreground">Contact:</span> {submission.contact_name || 'N/A'}
               </p>
               <p>
-                <span className="font-medium text-foreground">Email:</span> {submission.email || 'N/A'}
+                <span className="font-medium text-foreground">Email:</span> {submission.contact_email || 'N/A'}
               </p>
               <p>
-                <span className="font-medium text-foreground">Location:</span> {submission.location || 'N/A'}
+                <span className="font-medium text-foreground">Location:</span> {getLocation()}
               </p>
               <p>
                 <span className="font-medium text-foreground">Submitted:</span> {formatDate(submission.created_at)}
@@ -457,107 +458,88 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
       {isExpanded && (
         <div className="border-t border-border bg-muted/30">
           <div className="p-4 space-y-6">
-
-            {/* Basic Details */}
-            <div>
-              <h4 className="text-sm font-semibold text-foreground mb-3">Basic Details</h4>
-              <div className="space-y-1 text-sm">
-                {submission.organization_website && (
-                  <p>
-                    <span className="text-muted-foreground">Website:</span>{' '}
-                    <a href={submission.organization_website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                      {submission.organization_website}
-                    </a>
-                  </p>
-                )}
-                {submission.start_year && (
-                  <p><span className="text-muted-foreground">Started with Kolibri:</span> {submission.start_year}</p>
-                )}
-                {(submission.latitude && submission.longitude) && (
-                  <p className="text-xs text-muted-foreground">Coordinates: {submission.latitude}, {submission.longitude}</p>
-                )}
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="bg-card rounded-lg p-3 text-center border border-border">
+                <div className="text-2xl font-bold text-primary">{submission.number_of_students || 0}</div>
+                <div className="text-xs text-muted-foreground">Students</div>
+              </div>
+              <div className="bg-card rounded-lg p-3 text-center border border-border">
+                <div className="text-2xl font-bold text-primary">{submission.number_of_teachers || 0}</div>
+                <div className="text-xs text-muted-foreground">Teachers</div>
+              </div>
+              <div className="bg-card rounded-lg p-3 text-center border border-border">
+                <div className="text-2xl font-bold text-primary">{submission.number_of_devices || 0}</div>
+                <div className="text-xs text-muted-foreground">Devices</div>
+              </div>
+              <div className="bg-card rounded-lg p-3 text-center border border-border">
+                <div className="text-2xl font-bold text-primary">{submission.years_active || 0}</div>
+                <div className="text-xs text-muted-foreground">Years Active</div>
               </div>
             </div>
 
-            {/* Implementation Details */}
+            {/* Organization Details */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                {submission.implementation_settings && submission.implementation_settings.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Implementation Setting</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.implementation_settings.map((s: string) => (
-                        <Badge key={s} variant="secondary" className="text-xs">{s}</Badge>
-                      ))}
-                    </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">Organization Info</h4>
+                  <div className="space-y-1 text-sm">
+                    {submission.organization_website && (
+                      <p>
+                        <span className="text-muted-foreground">Website:</span>{' '}
+                        <a href={submission.organization_website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                          {submission.organization_website}
+                        </a>
+                      </p>
+                    )}
+                    {submission.contact_phone && (
+                      <p>
+                        <span className="text-muted-foreground">Phone:</span> {submission.contact_phone}
+                      </p>
+                    )}
+                    {submission.primary_language && (
+                      <p>
+                        <span className="text-muted-foreground">Primary Language:</span> {submission.primary_language}
+                      </p>
+                    )}
+                    {submission.other_languages && submission.other_languages.length > 0 && (
+                      <p>
+                        <span className="text-muted-foreground">Other Languages:</span> {submission.other_languages.join(', ')}
+                      </p>
+                    )}
                   </div>
-                )}
-                {submission.learner_types && submission.learner_types.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Learner Types</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.learner_types.map((t: string) => (
-                        <Badge key={t} variant="secondary" className="text-xs">{t}</Badge>
-                      ))}
-                    </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">Technical Details</h4>
+                  <div className="space-y-1 text-sm">
+                    {submission.kolibri_version && (
+                      <p>
+                        <span className="text-muted-foreground">Kolibri Version:</span> {submission.kolibri_version}
+                      </p>
+                    )}
+                    {submission.primary_use_case && (
+                      <p>
+                        <span className="text-muted-foreground">Primary Use Case:</span> {submission.primary_use_case}
+                      </p>
+                    )}
+                    {submission.implementation_date && (
+                      <p>
+                        <span className="text-muted-foreground">Implementation Date:</span> {formatDate(submission.implementation_date)}
+                      </p>
+                    )}
+                    <p>
+                      <span className="text-muted-foreground">Customized Content:</span> {submission.customized_content ? 'Yes' : 'No'}
+                    </p>
                   </div>
-                )}
-                {submission.device_usage && submission.device_usage.length > 0 && (
+                </div>
+
+                {submission.channels_used && submission.channels_used.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Device Usage During Session</h4>
+                    <h4 className="text-sm font-semibold text-foreground mb-2">Kolibri Library Channels</h4>
                     <div className="flex flex-wrap gap-1">
-                      {submission.device_usage.map((d: string) => (
-                        <Badge key={d} variant="secondary" className="text-xs">{d}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {submission.client_devices && submission.client_devices.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Client Devices per Server</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.client_devices.map((d: string) => (
-                        <Badge key={d} variant="secondary" className="text-xs">{d}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {submission.server_devices && submission.server_devices.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Server Devices</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.server_devices.map((d: string) => (
-                        <Badge key={d} variant="secondary" className="text-xs">{d}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {submission.client_device_types && submission.client_device_types.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Client Device Types</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.client_device_types.map((d: string) => (
-                        <Badge key={d} variant="secondary" className="text-xs">{d}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {submission.hardware_model && submission.hardware_model.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Hardware Implementation Model</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.hardware_model.map((m: string) => (
-                        <Badge key={m} variant="secondary" className="text-xs">{m}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {submission.blended_learning_model && submission.blended_learning_model.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Blended Learning Model</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {submission.blended_learning_model.map((m: string) => (
-                        <Badge key={m} variant="secondary" className="text-xs">{m}</Badge>
+                      {submission.channels_used.map((channel: string) => (
+                        <Badge key={channel} variant="secondary" className="text-xs">{channel}</Badge>
                       ))}
                     </div>
                   </div>
@@ -565,103 +547,44 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
               </div>
 
               <div className="space-y-4">
-                {submission.kolibri_usage_description && (
+                {submission.project_description && (
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">How Kolibri is Used</h4>
+                    <h4 className="text-sm font-semibold text-foreground mb-2">Project Description</h4>
                     <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
-                      {submission.kolibri_usage_description}
+                      {submission.project_description}
                     </p>
                   </div>
                 )}
 
-                {/* Content */}
-                <div>
-                  <h4 className="text-sm font-semibold text-foreground mb-2">Content</h4>
-                  <div className="space-y-1 text-sm">
-                    {submission.primary_language && (
-                      <p><span className="text-muted-foreground">Primary Language:</span> {submission.primary_language}</p>
-                    )}
-                    <p><span className="text-muted-foreground">Uses Kolibri Studio:</span> {submission.uses_kolibri_studio ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-
-                {submission.public_channels && (
+                {submission.challenges_faced && (
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Kolibri Library Channels</h4>
+                    <h4 className="text-sm font-semibold text-foreground mb-2">Challenges Faced</h4>
                     <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
-                      {submission.public_channels}
+                      {submission.challenges_faced}
                     </p>
-                  </div>
-                )}
-
-                {/* Photo */}
-                {submission.photo_url && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Project Photo</h4>
-                    <img src={submission.photo_url} alt="Project photo" className="max-w-xs h-auto rounded-lg border border-border" />
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Media & Social */}
-            {(submission.testimonials || submission.reports || submission.twitter_handle || submission.facebook_handle || submission.instagram_handle || submission.linkedin_handle || submission.forum_username || submission.other_social || (submission.program_links && submission.program_links.length > 0)) && (
+            {submission.additional_notes && (
               <div>
-                <h4 className="text-sm font-semibold text-foreground mb-3">Media &amp; Social</h4>
-                <div className="space-y-2 text-sm">
-                  {submission.program_links && submission.program_links.length > 0 && (
-                    <div>
-                      <span className="text-muted-foreground">Program Links:</span>
-                      <ul className="mt-1 space-y-1 ml-2">
-                        {submission.program_links.map((link, i) => (
-                          <li key={i}>
-                            <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                              {link.title || link.url}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {submission.testimonials && (
-                    <p><span className="text-muted-foreground">Testimonials / Stories:</span> {submission.testimonials}</p>
-                  )}
-                  {submission.reports && (
-                    <p>
-                      <span className="text-muted-foreground">Reports / White Papers:</span>{' '}
-                      <a href={submission.reports} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{submission.reports}</a>
-                    </p>
-                  )}
-                  {submission.twitter_handle && (
-                    <p><span className="text-muted-foreground">Twitter:</span> {submission.twitter_handle}</p>
-                  )}
-                  {submission.facebook_handle && (
-                    <p><span className="text-muted-foreground">Facebook:</span> {submission.facebook_handle}</p>
-                  )}
-                  {submission.instagram_handle && (
-                    <p><span className="text-muted-foreground">Instagram:</span> {submission.instagram_handle}</p>
-                  )}
-                  {submission.linkedin_handle && (
-                    <p><span className="text-muted-foreground">LinkedIn:</span> {submission.linkedin_handle}</p>
-                  )}
-                  {submission.forum_username && (
-                    <p><span className="text-muted-foreground">Forum Username:</span> {submission.forum_username}</p>
-                  )}
-                  {submission.other_social && (
-                    <p><span className="text-muted-foreground">Other Social:</span> {submission.other_social}</p>
-                  )}
-                </div>
+                <h4 className="text-sm font-semibold text-foreground mb-2">Additional Notes</h4>
+                <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
+                  {submission.additional_notes}
+                </p>
               </div>
             )}
 
-            {/* Preferences */}
-            <div>
-              <h4 className="text-sm font-semibold text-foreground mb-2">Preferences</h4>
-              <div className="space-y-1 text-sm">
-                <p><span className="text-muted-foreground">Receive updates from Learning Equality:</span> {submission.receive_updates ? 'Yes' : 'No'}</p>
-                <p><span className="text-muted-foreground">Email visible to others:</span> {submission.email_visible ? 'Yes' : 'No'}</p>
+            {/* Coordinates */}
+            {(submission.latitude && submission.longitude) && (
+              <div>
+                <h4 className="text-sm font-semibold text-foreground mb-2">Coordinates</h4>
+                <p className="text-sm text-muted-foreground">
+                  Lat: {submission.latitude}, Long: {submission.longitude}
+                </p>
               </div>
-            </div>
+            )}
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-4 border-t border-border">
