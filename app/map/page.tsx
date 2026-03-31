@@ -49,16 +49,15 @@ export default function MapPage() {
       filtered = filtered.filter(
         project =>
           project.organization_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          project.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          project.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          project.project_description.toLowerCase().includes(searchTerm.toLowerCase())
+          (project.location?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (project.kolibri_usage_description?.toLowerCase().includes(searchTerm.toLowerCase()))
       )
     }
 
-    // Filter by countries
+    // Filter by location
     if (selectedCountries.length > 0) {
       filtered = filtered.filter(project =>
-        selectedCountries.includes(project.country)
+        selectedCountries.some(loc => project.location?.includes(loc))
       )
     }
 
@@ -159,19 +158,19 @@ export default function MapPage() {
                   />
                 </div>
 
-                {/* Learner Types Filter */}
+                {/* Location Filter */}
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-3">
-                    Countries
+                    Locations
                   </label>
                   <div className="space-y-2">
-                    {Array.from(new Set(projects.map(p => p.country))).map(country => (
-                      <label key={country} className="flex items-center gap-2 cursor-pointer">
+                    {Array.from(new Set(projects.map(p => p.location).filter(Boolean))).map(location => (
+                      <label key={location} className="flex items-center gap-2 cursor-pointer">
                         <Checkbox
-                          checked={selectedCountries.includes(country)}
-                          onCheckedChange={() => handleCountryToggle(country)}
+                          checked={selectedCountries.includes(location)}
+                          onCheckedChange={() => handleCountryToggle(location)}
                         />
-                        <span className="text-sm text-foreground">{country}</span>
+                        <span className="text-sm text-foreground">{location}</span>
                       </label>
                     ))}
                   </div>
@@ -273,23 +272,21 @@ function ProjectCard({ project, onSelect }: { project: Project; onSelect: (p: Pr
     >
       <CardHeader>
         <CardTitle className="text-lg">{project.organization_name}</CardTitle>
-        <CardDescription>
-          {project.city}, {project.country}
-        </CardDescription>
+        <CardDescription>{project.location}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-sm text-foreground/60 line-clamp-3">{project.project_description || 'No description provided'}</p>
+        <p className="text-sm text-foreground/60 line-clamp-3">{project.kolibri_usage_description || 'No description provided'}</p>
         <div className="grid grid-cols-2 gap-3 text-sm">
-          {project.number_of_students != null && (
+          {project.number_of_learners && (
             <div>
-              <p className="text-foreground/60">Students</p>
-              <p className="font-medium text-foreground">{project.number_of_students.toLocaleString()}</p>
+              <p className="text-foreground/60">Learners</p>
+              <p className="font-medium text-foreground">{project.number_of_learners}</p>
             </div>
           )}
-          {project.number_of_teachers != null && (
+          {project.number_of_teachers && (
             <div>
               <p className="text-foreground/60">Teachers</p>
-              <p className="font-medium text-foreground">{project.number_of_teachers.toLocaleString()}</p>
+              <p className="font-medium text-foreground">{project.number_of_teachers}</p>
             </div>
           )}
         </div>
@@ -299,9 +296,9 @@ function ProjectCard({ project, onSelect }: { project: Project; onSelect: (p: Pr
               <span className="font-medium">Language:</span> {project.primary_language}
             </p>
           )}
-          {project.organization_type && (
+          {project.start_year && (
             <p className="text-sm text-foreground/60">
-              <span className="font-medium">Type:</span> {project.organization_type}
+              <span className="font-medium">Started:</span> {project.start_year}
             </p>
           )}
         </div>
@@ -323,19 +320,17 @@ function ProjectListItem({ project, onSelect }: { project: Project; onSelect: (p
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
           <div className="flex-1">
             <h3 className="font-semibold text-foreground mb-1">{project.organization_name}</h3>
-            <p className="text-sm text-foreground/60 mb-2">
-              {project.city}, {project.country}
-            </p>
-            <p className="text-sm text-foreground mb-2 line-clamp-2">{project.project_description}</p>
+            <p className="text-sm text-foreground/60 mb-2">{project.location}</p>
+            <p className="text-sm text-foreground mb-2 line-clamp-2">{project.kolibri_usage_description}</p>
             <div className="flex flex-wrap gap-3 text-sm text-foreground/60">
-              {project.number_of_students != null && (
-                <span><span className="font-medium">Students:</span> {project.number_of_students.toLocaleString()}</span>
+              {project.number_of_learners && (
+                <span><span className="font-medium">Learners:</span> {project.number_of_learners}</span>
               )}
               {project.primary_language && (
                 <span><span className="font-medium">Language:</span> {project.primary_language}</span>
               )}
-              {project.organization_type && (
-                <span><span className="font-medium">Type:</span> {project.organization_type}</span>
+              {project.start_year && (
+                <span><span className="font-medium">Started:</span> {project.start_year}</span>
               )}
             </div>
           </div>
