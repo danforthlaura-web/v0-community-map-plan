@@ -233,7 +233,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               Request Changes
             </Button>
           </a>
-          {project.email_visible && project.email && (
+          {project.email && (
             <a href={`mailto:${project.email}`} className="block">
               <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                 Contact {project.name?.split(' ')[0] ?? 'Team'}
