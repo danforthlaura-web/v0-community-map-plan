@@ -589,7 +589,7 @@ function SubmissionCard({ submission, onApprove, onReject, getStatusColor }: Sub
 
                 {submission.public_channels && (
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">Public Channels</h4>
+                    <h4 className="text-sm font-semibold text-foreground mb-2">Favorite Kolibri Library Channels</h4>
                     <p className="text-sm text-muted-foreground bg-card p-3 rounded-lg border border-border">
                       {submission.public_channels}
                     </p>

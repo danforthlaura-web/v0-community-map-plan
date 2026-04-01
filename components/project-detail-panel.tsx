@@ -170,7 +170,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             <Row label="Language" value={project.primary_language} />
             {project.public_channels && (
               <div className="mt-3">
-                <p className="text-sm text-foreground/50 mb-2">Public Channels</p>
+                <p className="text-sm text-foreground/50 mb-2">Favorite Kolibri Library Channels</p>
                 <p className="text-sm text-foreground leading-relaxed">{project.public_channels}</p>
               </div>
             )}
