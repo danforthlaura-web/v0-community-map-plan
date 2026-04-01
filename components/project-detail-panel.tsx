@@ -44,16 +44,6 @@ export interface Project {
   email_visible?: boolean
 }
 
-const DEVICE_USAGE_LABEL_MAP: Record<string, string> = {
-  'Each learner uses their own device': 'Individual learning',
-  'Learners share devices': 'Group work',
-  'Whole class uses one device': 'Whole class instruction',
-}
-
-function normalizeDeviceUsage(values: string[]): string[] {
-  return values.map(v => DEVICE_USAGE_LABEL_MAP[v] ?? v)
-}
-
 interface ProjectDetailPanelProps {
   project: Project | null
   onClose: () => void
@@ -162,7 +152,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               <Row label="Learner types" value={project.learner_types.join(', ')} />
             )}
             {project.device_usage && project.device_usage.length > 0 && (
-              <Row label="Device usage" value={normalizeDeviceUsage(project.device_usage).join(', ')} />
+              <Row label="Device usage" value={project.device_usage.join(', ')} />
             )}
             {project.server_devices && project.server_devices.length > 0 && (
               <Row label="Server device(s)" value={project.server_devices.join(', ')} />
