@@ -190,6 +190,40 @@ export default function SubmitPage() {
           <p className="text-foreground/60">Share your Kolibri implementation with the global community. Fields marked with * are required.</p>
         </div>
 
+        {/* How It Works */}
+        <section className="mb-10">
+          <h2 className="text-xl font-bold text-foreground mb-6">How It Works</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="p-5 rounded-lg bg-card border border-border">
+              <div className="w-10 h-10 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-3">
+                1
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1">Submit Your Story</h3>
+              <p className="text-sm text-foreground/70">
+                Fill out our simple form with details about your Kolibri implementation, learners, and impact.
+              </p>
+            </div>
+            <div className="p-5 rounded-lg bg-card border border-border">
+              <div className="w-10 h-10 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-3">
+                2
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1">Our Team Reviews</h3>
+              <p className="text-sm text-foreground/70">
+                The Learning Equality team reviews your submission and gets back to you within a few days.
+              </p>
+            </div>
+            <div className="p-5 rounded-lg bg-card border border-border">
+              <div className="w-10 h-10 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-3">
+                3
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1">Go Live on the Map</h3>
+              <p className="text-sm text-foreground/70">
+                Your implementation appears on the map for the global community to discover and connect with you.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Status messages */}
         {submitSuccess && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -517,15 +551,15 @@ export default function SubmitPage() {
               </div>
             </div>
           </section>
-
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold"
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit Your Program'}
-          </Button>
         </form>
+
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold"
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit Your Program'}
+        </Button>
       </div>
     </main>
   )

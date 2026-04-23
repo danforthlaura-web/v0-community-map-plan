@@ -49,77 +49,65 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/map" className="w-full sm:w-auto">
               <Button size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                Explore the Map
+                Explore the Kolibri map
               </Button>
             </Link>
             <Link href="/submit" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="w-full border-primary text-primary hover:bg-primary/10">
-                Submit Your Project
+                Add your program to the map
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="bg-secondary/30 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center mb-8">
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
-              alt="Kolibri community journey illustration"
-              className="w-full max-w-lg h-auto"
-            />
-          </div>
-          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                1
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Submit Your Story</h3>
-              <p className="text-foreground/70">
-                Fill out our simple form with details about your Kolibri implementation, learners, and impact.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                2
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Our Team Reviews</h3>
-              <p className="text-foreground/70">
-                The Learning Equality team reviews your submission and gets back to you within a few days.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                3
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Go Live on the Map</h3>
-              <p className="text-foreground/70">
-                Your implementation appears on the map for the global community to discover and connect with you.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Kolibri Flying Illustration */}
+      <div className="flex justify-center px-4 py-8">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
+          alt="Kolibri community journey illustration"
+          className="w-full max-w-lg h-auto"
+        />
+      </div>
 
-      {/* CTA Section */}
+      {/* Voices from the Community Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center">
-          <h2 className={`${caveat.className} text-4xl font-bold text-foreground mb-8`}>Ready to Share Your Kolibri Story?</h2>
-          <Link href="/submit">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Submit Your Project Now
-            </Button>
-          </Link>
+        <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Voices from the Community</h2>
+        <div className="flex flex-col md:flex-row gap-12 items-stretch">
+          {/* Quote Card */}
+          <div className="flex-1 p-8 rounded-lg bg-accent h-full">
+            <div className="text-accent-foreground text-3xl mb-3 leading-none">{"'"}</div>
+            <p className="italic text-accent-foreground mb-4 leading-relaxed text-base">
+              I&apos;m actually an undergraduate student. Last year, my country was undergoing a hard time due to there not being enough water in the hydroelectric power plants, so we had to endure months of electricity shortages. Being completely honest, I was failing my calculus class. I did some research and I came across your platform. I used it for about two months, it helped me greatly to study during the electricity cuts. I could say, thanks to all the hard work you&apos;ve poured into this amazing platform, I was able to pass my class during those times. Thanks a lot, I&apos;m forever grateful.
+            </p>
+            <p className="text-sm font-medium text-accent-foreground">— Student, Ecuador</p>
+          </div>
+
+          {/* CTA Block */}
+          <div className="flex-1 h-full flex flex-col">
+            {/* Image Placeholder */}
+            <div className="w-full h-64 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <p className="text-gray-500 font-medium">Image placeholder</p>
+            </div>
+            <h3 className="text-xl font-semibold text-foreground mb-3">How has Kolibri made an impact on your teachers or learners?</h3>
+            <p className="text-foreground/70 mb-6 leading-relaxed text-base">
+              We&apos;re collecting before-and-after moments of teachers or learners using Kolibri. Help us inspire others by sharing the impact Kolibri has made on an individual&apos;s journey.
+            </p>
+            <div className="flex justify-center">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Share a Story
+                </Button>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="bg-card border-t border-border mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-foreground/60 text-sm">
-          <p>© 2026 Learning Equality. Kolibri Community Map.</p>
+          <p>© 2026 Learning Equality.</p>
         </div>
       </footer>
     </main>
