@@ -96,7 +96,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-card border-t border-border mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-foreground/60 text-sm">
-          <p>© 2026 Learning Equality. Kolibri Community Map.</p>
+          <p>© 2026 Learning Equality.</p>
         </div>
       </footer>
     </main>
