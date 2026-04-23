@@ -61,6 +61,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Kolibri Flying Illustration */}
+      <div className="flex justify-center px-4 py-8">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
+          alt="Kolibri community journey illustration"
+          className="w-full max-w-lg h-auto"
+        />
+      </div>
+
       {/* Voices from the Community Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Voices from the Community</h2>
