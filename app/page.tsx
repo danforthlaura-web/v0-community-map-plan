@@ -61,6 +61,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Voices from the Community Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Voices from the Community</h2>
+        <div className="flex flex-col lg:flex-row gap-12 items-start">
+          {/* Quote Card */}
+          <div className="flex-1 p-8 rounded-lg bg-card border border-accent/30">
+            <div className="text-accent text-5xl mb-4 leading-none">{"'"}</div>
+            <p className="italic text-foreground mb-6 leading-relaxed text-lg">
+              I&apos;m actually an undergraduate student. Last year, my country was undergoing a hard time due to there not being enough water in the hydroelectric power plants, so we had to endure months of electricity shortages. Being completely honest, I was failing my calculus class. I did some research and I came across your platform. I used it for about two months, it helped me greatly to study during the electricity cuts. I could say, thanks to all the hard work you&apos;ve poured into this amazing platform, I was able to pass my class during those times. Thanks a lot, I&apos;m forever grateful.
+            </p>
+            <p className="text-base font-medium text-foreground">— Student, Ecuador</p>
+          </div>
+
+          {/* CTA Block */}
+          <div className="flex-1">
+            <h3 className="text-2xl font-semibold text-foreground mb-4">Share a Learner Story</h3>
+            <p className="text-foreground/70 mb-6 leading-relaxed text-lg">
+              We&apos;re collecting before-and-after moments from learners using Kolibri. Help us inspire others by sharing the emotional impact Kolibri has made on a student&apos;s learning journey.
+            </p>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="border-accent text-accent hover:bg-accent/5">
+                Share a Learner Story
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
