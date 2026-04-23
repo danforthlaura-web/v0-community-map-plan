@@ -76,13 +76,13 @@ export default function Home() {
 
           {/* CTA Block */}
           <div className="flex-1">
-            <h3 className="text-2xl font-semibold text-foreground mb-4">Share a Learner Story</h3>
+            <h3 className="text-2xl font-semibold text-foreground mb-4">How has Kolibri made an impact on your teachers or learners?</h3>
             <p className="text-foreground/70 mb-6 leading-relaxed text-lg">
-              We&apos;re collecting before-and-after moments from learners using Kolibri. Help us inspire others by sharing the emotional impact Kolibri has made on a student&apos;s learning journey.
+              We&apos;re collecting before-and-after moments of teachers or learners using Kolibri. Help us inspire others by sharing the impact Kolibri has made on an individual&apos;s journey.
             </p>
             <a href="#" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Share a Learner Story
+                Share a Story
               </Button>
             </a>
           </div>
