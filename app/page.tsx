@@ -93,18 +93,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center">
-          <h2 className={`${caveat.className} text-4xl font-bold text-foreground mb-8`}>Ready to Share Your Kolibri Story?</h2>
-          <Link href="/submit">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Submit Your Project Now
-            </Button>
-          </Link>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="bg-card border-t border-border mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-foreground/60 text-sm">
