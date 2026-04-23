@@ -84,7 +84,7 @@ export default function Home() {
           </div>
 
           {/* CTA Block */}
-          <div className="flex-1 h-full">
+          <div className="flex-1 h-full flex flex-col">
             {/* Image Placeholder */}
             <div className="w-full h-64 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <p className="text-gray-500 font-medium">Image placeholder</p>
@@ -93,11 +93,13 @@ export default function Home() {
             <p className="text-foreground/70 mb-6 leading-relaxed text-base">
               We&apos;re collecting before-and-after moments of teachers or learners using Kolibri. Help us inspire others by sharing the impact Kolibri has made on an individual&apos;s journey.
             </p>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Share a Story
-              </Button>
-            </a>
+            <div className="flex justify-center">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Share a Story
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </section>
