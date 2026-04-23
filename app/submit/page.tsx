@@ -551,15 +551,43 @@ export default function SubmitPage() {
               </div>
             </div>
           </section>
-
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold"
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit Your Program'}
-          </Button>
         </form>
+
+        {/* Voices from the Community Section */}
+        <section className="mt-12 mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Voices from the Community</h2>
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            {/* Quote Card */}
+            <div className="flex-1 p-6 rounded-lg bg-card border border-accent/30">
+              <div className="text-accent text-4xl mb-3 leading-none">{"'"}</div>
+              <p className="italic text-foreground mb-4 leading-relaxed">
+                I&apos;m actually an undergraduate student. Last year, my country was undergoing a hard time due to there not being enough water in the hydroelectric power plants, so we had to endure months of electricity shortages. Being completely honest, I was failing my calculus class. I did some research and I came across your platform. I used it for about two months, it helped me greatly to study during the electricity cuts. I could say, thanks to all the hard work you&apos;ve poured into this amazing platform, I was able to pass my class during those times. Thanks a lot, I&apos;m forever grateful.
+              </p>
+              <p className="text-sm font-medium text-foreground">— Student, Ecuador</p>
+            </div>
+
+            {/* CTA Block */}
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-foreground mb-3">Share a Learner Story</h3>
+              <p className="text-foreground/70 mb-5 leading-relaxed">
+                We&apos;re collecting before-and-after moments from learners using Kolibri. Help us inspire others by sharing the emotional impact Kolibri has made on a student&apos;s learning journey.
+              </p>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full md:w-auto border-accent text-accent hover:bg-accent/5">
+                  Share a Learner Story
+                </Button>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold"
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit Your Program'}
+        </Button>
       </div>
     </main>
   )
