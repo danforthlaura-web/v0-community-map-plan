@@ -65,11 +65,14 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Voices from the Community</h2>
         <div className="flex flex-col md:flex-row gap-12 items-stretch">
-          {/* Quote Blob */}
-          <div 
-            className="flex-1 h-full rounded-lg bg-cover bg-center bg-no-repeat"
-            style={{backgroundImage: "url('/quote-blob.png')"}}
-          />
+          {/* Quote Card */}
+          <div className="flex-1 p-8 rounded-lg bg-accent h-full">
+            <div className="text-accent-foreground text-3xl mb-3 leading-none">{"'"}</div>
+            <p className="italic text-accent-foreground mb-4 leading-relaxed text-base">
+              I&apos;m actually an undergraduate student. Last year, my country was undergoing a hard time due to there not being enough water in the hydroelectric power plants, so we had to endure months of electricity shortages. Being completely honest, I was failing my calculus class. I did some research and I came across your platform. I used it for about two months, it helped me greatly to study during the electricity cuts. I could say, thanks to all the hard work you&apos;ve poured into this amazing platform, I was able to pass my class during those times. Thanks a lot, I&apos;m forever grateful.
+            </p>
+            <p className="text-sm font-medium text-accent-foreground">— Student, Ecuador</p>
+          </div>
 
           {/* CTA Block */}
           <div className="flex-1 h-full">
