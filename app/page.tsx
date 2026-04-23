@@ -61,49 +61,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="bg-secondary/30 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center mb-8">
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kolibri_flying-5wcBFWUaiMY6VfDXY6K7fbcBveZCC0.png"
-              alt="Kolibri community journey illustration"
-              className="w-full max-w-lg h-auto"
-            />
-          </div>
-          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                1
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Submit Your Story</h3>
-              <p className="text-foreground/70">
-                Fill out our simple form with details about your Kolibri implementation, learners, and impact.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                2
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Our Team Reviews</h3>
-              <p className="text-foreground/70">
-                The Learning Equality team reviews your submission and gets back to you within a few days.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                3
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Go Live on the Map</h3>
-              <p className="text-foreground/70">
-                Your implementation appears on the map for the global community to discover and connect with you.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
