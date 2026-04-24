@@ -54,11 +54,12 @@ export default function MapPage() {
       )
     }
 
-    // Filter by location
+    // Filter by country
     if (selectedCountries.length > 0) {
-      filtered = filtered.filter(project =>
-        selectedCountries.some(loc => project.location?.includes(loc))
-      )
+      filtered = filtered.filter(project => {
+        const projectCountry = project.location?.split(',').pop()?.trim()
+        return selectedCountries.some(country => projectCountry?.includes(country))
+      })
     }
 
     setFilteredProjects(filtered)
@@ -161,16 +162,20 @@ export default function MapPage() {
                 {/* Location Filter */}
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-3">
-                    Locations
+                    Countries
                   </label>
                   <div className="space-y-2">
-                    {Array.from(new Set(projects.map(p => p.location).filter(Boolean))).map(location => (
-                      <label key={location} className="flex items-center gap-2 cursor-pointer">
+                    {Array.from(new Set(
+                      projects
+                        .map(p => p.location?.split(',').pop()?.trim())
+                        .filter(Boolean)
+                    )).sort().map(country => (
+                      <label key={country} className="flex items-center gap-2 cursor-pointer">
                         <Checkbox
-                          checked={selectedCountries.includes(location)}
-                          onCheckedChange={() => handleCountryToggle(location)}
+                          checked={selectedCountries.some(c => c.includes(country))}
+                          onCheckedChange={() => handleCountryToggle(country)}
                         />
-                        <span className="text-sm text-foreground">{location}</span>
+                        <span className="text-sm text-foreground">{country}</span>
                       </label>
                     ))}
                   </div>
