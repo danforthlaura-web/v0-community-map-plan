@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import ProjectDetailPanel, { type Project } from '@/components/project-detail-panel'
 
 const WorldMap = lazy(() => import('@/components/world-map'))
@@ -15,7 +14,7 @@ export default function MapPage() {
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+  const [selectedCountry, setSelectedCountry] = useState<string>('')
   const [viewType, setViewType] = useState<'grid' | 'list'>('grid')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
@@ -55,21 +54,15 @@ export default function MapPage() {
     }
 
     // Filter by country
-    if (selectedCountries.length > 0) {
+    if (selectedCountry) {
       filtered = filtered.filter(project => {
         const projectCountry = project.location?.split(',').pop()?.trim()
-        return selectedCountries.some(country => projectCountry?.includes(country))
+        return projectCountry?.includes(selectedCountry)
       })
     }
 
     setFilteredProjects(filtered)
-  }, [searchTerm, selectedCountries, projects])
-
-  const handleCountryToggle = (country: string) => {
-    setSelectedCountries(prev =>
-      prev.includes(country) ? prev.filter(c => c !== country) : [...prev, country]
-    )
-  }
+  }, [searchTerm, selectedCountry, projects])
 
   return (
     <>
@@ -159,26 +152,25 @@ export default function MapPage() {
                   />
                 </div>
 
-                {/* Location Filter */}
+                {/* Country Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-3">
-                    Countries
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Country
                   </label>
-                  <div className="space-y-2">
+                  <select
+                    value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  >
+                    <option value="">All countries</option>
                     {Array.from(new Set(
                       projects
                         .map(p => p.location?.split(',').pop()?.trim())
                         .filter(Boolean)
                     )).sort().map(country => (
-                      <label key={country} className="flex items-center gap-2 cursor-pointer">
-                        <Checkbox
-                          checked={selectedCountries.some(c => c.includes(country))}
-                          onCheckedChange={() => handleCountryToggle(country)}
-                        />
-                        <span className="text-sm text-foreground">{country}</span>
-                      </label>
+                      <option key={country} value={country}>{country}</option>
                     ))}
-                  </div>
+                  </select>
                 </div>
 
                 {/* View Type Toggle */}
@@ -207,13 +199,13 @@ export default function MapPage() {
                 </div>
 
                 {/* Reset Filters */}
-                {(searchTerm || selectedCountries.length > 0) && (
+                {(searchTerm || selectedCountry) && (
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => {
                       setSearchTerm('')
-                      setSelectedCountries([])
+                      setSelectedCountry('')
                     }}
                     className="w-full"
                   >
@@ -241,7 +233,7 @@ export default function MapPage() {
                     variant="outline"
                     onClick={() => {
                       setSearchTerm('')
-                      setSelectedCountries([])
+                      setSelectedCountry('')
                     }}
                   >
                     Clear Filters
