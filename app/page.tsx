@@ -22,9 +22,6 @@ export default function Home() {
             <Link href="/" className="text-foreground hover:text-primary text-sm">
               Map
             </Link>
-            <Link href="/submit" className="text-foreground hover:text-primary text-sm">
-              Submit Project
-            </Link>
             <Link href="/admin" className="text-foreground hover:text-primary text-sm">
               Admin
             </Link>
