@@ -93,10 +93,15 @@ export default function Home() {
             <p className="text-foreground/70 mb-6 leading-relaxed text-base">
               We&apos;re collecting before-and-after moments of teachers or learners using Kolibri. Help us inspire others by sharing the impact Kolibri has made on an individual&apos;s journey.
             </p>
-            <div className="flex justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a href="#" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  Share a Story
+                  Send a voice note on WhatsApp
+                </Button>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Share in writing
                 </Button>
               </a>
             </div>
